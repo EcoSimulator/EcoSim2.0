@@ -7,8 +7,8 @@ class Sprite(pygame.sprite.DirtySprite):
     def __init__(self, map):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.image.load("../Resources/sprites/octopus.png")
-        self.tile = map.get_tile_at_pixel((random.randint(0, 700), random.randint(0, 700)))
-        self.rect = Rect((700, 700), (24, 24))
+        self.tile = map.get_tile_at_pixel((random.randint(600, 700), random.randint(600, 700)))
+        self.rect = Rect(self.tile.location, (24, 24))
 
     # map is just a parameter for ease of testing here
     # should be a globally accessible variable
