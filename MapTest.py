@@ -1,9 +1,7 @@
-import pygame
 import TiledMap
-
+from properties import *
 
 pygame.init()
-screen = pygame.display.set_mode((800, 800))
 
 world_map = TiledMap.WorldMap("Map2", screen)
 

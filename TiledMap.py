@@ -1,22 +1,28 @@
 import xml.etree.ElementTree as ElementTree
 import pygame.image as pyg_image
-import pygame
+from properties import *
 
 
-class Tile():
+class TileType:
     height = 30
     width = 30
 
     def __init__(self, name, gid):
-        # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
         self.loc = "Tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
+    def __init2__(self, tile):
+        self.name = tile.name
+        self.gid = tile.gid
+        self.loc = tile.loc
+        self.image = tile.image
 
-class TileInstance(Tile):
+
+class TileInstance(TileType):
     def __init__(self, tile):
+        TileType.__init2__(self, tile)
         self.tile = tile
         self.name = tile.name
         self.gid = tile.gid
@@ -30,17 +36,12 @@ class TileInstance(Tile):
     def set_location(self, (x, y)):
         self.location = (x, y)
 
-    def self(self):
-        return self
-
 
 class WorldMap(pygame.Surface):
-    path = 'Maps/'
-    ext = '.tmx'
 
-    def __init__(self, file_name, screen):
+    def __init__(self, file_name):
         self.screen = screen
-        self.file_name = self.path + file_name + self.ext
+        self.file_name = map_path + file_name + tmx_ext
         xml_file = ElementTree.parse(self.file_name)
         self.root = xml_file.getroot()
         self.tile_types = self.__create_tile_list()
@@ -48,8 +49,8 @@ class WorldMap(pygame.Surface):
         self.name = layer.attrib['name']
         self.width_t = int(layer.attrib['width'])
         self.height_t = int(layer.attrib['height'])
-        self.widthPX = self.width_t * Tile.width
-        self.heightPX = self.height_t * Tile.height
+        self.widthPX = self.width_t * TileType.width
+        self.heightPX = self.height_t * TileType.height
         numbers = layer.find("data").text
         self.tiles = self.__make_tile_matrix(numbers)
 
@@ -59,20 +60,20 @@ class WorldMap(pygame.Surface):
         for line in self.tiles:
             for tile in line:
                 if tile is not None:
-                    self.screen.blit(tile.image, (x * Tile.width, y * Tile.height))
-                    tile.set_location((x * Tile.height, y * Tile.width))
+                    self.screen.blit(tile.image, (x * TileType.width, y * TileType.height))
+                    tile.set_location((x * TileType.height, y * TileType.width))
                     x += 1
             x = 0
             y += 1
         pygame.display.update()
 
-    def get_surrounding_moveable_tiles(self, tile):
+    def get_surrounding_movable_tiles(self, tile):
         y = tile.location[0] / 30
         x = tile.location[1] / 30
-        adjacent = [self.__get_tile_by_index(((x + 1), (y + 1))),
-                    self.__get_tile_by_index(((x + 1), (y - 1))),
-                    self.__get_tile_by_index(((x - 1), (y + 1))),
-                    self.__get_tile_by_index(((x - 1), (y - 1)))]
+        adjacent = [self.__get_tile_by_index((x, (y + 1))),
+                    self.__get_tile_by_index((x, (y - 1))),
+                    self.__get_tile_by_index(((x + 1), y)),
+                    self.__get_tile_by_index(((x - 1), y))]
         adjacent = filter(None, adjacent)
         return adjacent
 
@@ -101,16 +102,16 @@ class WorldMap(pygame.Surface):
         for entry in self.root.findall("tileset"):
             attrib = entry.attrib
             if attrib['name'].startswith('grass'):
-                grass_tile = Tile(attrib['name'], attrib['firstgid'])
+                grass_tile = TileType(attrib['name'], attrib['firstgid'])
                 temp_tiles.insert(grass_tile.gid, grass_tile)
             elif attrib['name'].startswith('soil'):
-                soil_tile = Tile(attrib['name'], attrib['firstgid'])
+                soil_tile = TileType(attrib['name'], attrib['firstgid'])
                 temp_tiles.insert(soil_tile.gid, soil_tile)
             elif attrib['name'].startswith('veg'):
-                veg_tile = Tile(attrib['name'], attrib['firstgid'])
+                veg_tile = TileType(attrib['name'], attrib['firstgid'])
                 temp_tiles.insert(veg_tile.gid, veg_tile)
             elif attrib['name'].startswith('water'):
-                water_tile = Tile(attrib['name'], attrib['firstgid'])
+                water_tile = TileType(attrib['name'], attrib['firstgid'])
                 temp_tiles.insert(water_tile.gid, water_tile)
         return temp_tiles
 
