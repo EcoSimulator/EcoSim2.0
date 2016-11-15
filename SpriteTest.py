@@ -23,5 +23,6 @@ def sprite_test():
         sprite.move(world_map, screen)
         s2.move(world_map, screen)
         pygame.display.update()
+        #pygame.event.pump()
 
 sprite_test()

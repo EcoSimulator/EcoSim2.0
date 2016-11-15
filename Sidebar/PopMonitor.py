@@ -39,6 +39,31 @@ def make_monitor(screen, itr, species):
     return monitor
 
 
+def monitor_buttons(screen):
+    species = ["wolf", "deer", "bees", "plant"]
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    dist = 36
+    x1 = 12
+    x2 = x1+90
+    y1 = 14
+    y2 = y1+27
+    for item in species:
+        if x2 > mouse[0] > x1 and y2 > mouse[1] > y1:
+            if click[0] == 1:
+                confirm(screen, item)
+        y1 += dist
+        y2 += dist
+
+
+def confirm(screen, species):
+    sprite = pygame.image.load("Resources/sprites/" +species+ ".png")
+    sprite_rect = Rect((200, 200), (24, 24))
+    screen.blit(sprite, sprite_rect)
+    pygame.display.flip()
+
+
 def update_population(screen, itr, species):
     font = pygame.font.SysFont("monospace", 22, True, False)
     population = str(len(species))
