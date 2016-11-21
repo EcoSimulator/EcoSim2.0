@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from InfoScreen import InfoDisplay
 
 def make_monitor(screen, itr, species):
     # We need a few different elements:
@@ -52,7 +53,7 @@ def monitor_buttons(screen):
     for item in species:
         if x2 > mouse[0] > x1 and y2 > mouse[1] > y1:
             if click[0] == 1:
-                confirm(screen, item)
+                InfoDisplay.display_info(screen, item)
         y1 += dist
         y2 += dist
 

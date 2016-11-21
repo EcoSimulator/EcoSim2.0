@@ -4,10 +4,11 @@ import PopMonitor
 #import Utils
 
 def make_sidebar(screen):
-    # maybe instead i should draw a rectangle of the screen's height
+    # draw a rectangle for the background
     sidebar_rect = Rect((0, 0), (154, screen.get_size()[1]))
     pygame.draw.rect(screen, (55, 55, 55, 100), sidebar_rect)
 
+    # iterate through available species and make monitors for them
     species = ["wolf", "deer", "bees", "plant"]
     itr = 0
     for item in species:
