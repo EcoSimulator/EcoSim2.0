@@ -64,6 +64,9 @@ class Deer(Creature):
         self.SciName = "Odocoileus virginianus"
         self.ConStatus = "Least concern"
         self.Description = "The white-tailed deer is a medium-sized deer native to the United States, Canada, Mexico, Central America, and South America as far south as Peru and Bolivia. It has also been introduced to New Zealand, Cuba, Jamaica, Hispaniola, Puerto Rico, Bahamas, Lesser Antilles, and some countries in Europe, such as Finland, the Czech Republic, and Serbia. In the Americas, it is the most widely distributed wild ungulate."
+        self.InfoSource = "https://en.wikipedia.org/wiki/White-tailed_deer"
+        self.Image = "deer.jpg"
+        self.ImageSource = "Wikipedia"
 
 class Bee(Creature):
     def __init__(self):
@@ -72,6 +75,9 @@ class Bee(Creature):
         self.SciName = "Apis mellifera"
         self.ConStatus = "-"
         self.Description = "The western honey bee is the most common of the ~40 species of honey bee worldwide. The genus name Ajpis is Latin for \"bee\", and mellifera means \"honey-bearing\", referring to the species' tendency to produce a large quantity of honey for storage over the winter. Like all honey bees, the western honey bee is eusocial, creating colonies wijth a single fertile female (the queen), many sterile females (workers), and a small proportion of fertile males (drones). Individual colonies can house tens of thousands of bees. Colony activities are organized by complex communication between individuals, through both odors and the dance language."
+        self.InfoSource = "https://en.wikipedia.org/wiki/Western_honey_bee"
+        self.Image = "bee.jpg"
+        self.ImageSource = "Wikipedia"
 
 class Plant(Creature):
     def __init__(self):
@@ -80,3 +86,6 @@ class Plant(Creature):
         self.SciName = "Plantus plant"
         self.ConStatus = "-"
         self.Description = "Plants grow out of the dirt. Deer like to eat them. Rabbits eat them, too. Some people don't eat meat and only eat plants because they are secretly rabbits in disguise."
+        self.InfoSource = "I'm drunk okay?"
+        self.Image = "plant.jpg"
+        self.ImageSource = "The Internet"
