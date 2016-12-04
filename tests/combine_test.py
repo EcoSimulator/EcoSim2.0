@@ -5,7 +5,7 @@ from widgets.widget___sidebar import SideBar as s
 
 pygame.init()
 
-world_map = widget___tiled_map.WorldMap("map2", (155, 0))
+world_map = widget___tiled_map.WorldMap("map2.tmx", (155, 0))
 
 screen = pygame.display.set_mode((world_map.widthPX + 154, world_map.heightPX))
 

@@ -1,29 +1,39 @@
 import xml.etree.ElementTree as ElementTree
 import pygame.image as pyg_image
+import os
 from properties import *
 
 
 class TileType:
     """
-    Class representing a type
+    Class representing a type of a tile.
     """
     height = 30
     width = 30
 
     def __init__(self, name, gid):
         """
-        :param name:
-        :param gid:
+        :param name: file name
+        :param gid: gid from the tmx file
         """
         # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
+        #self.loc = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + name + ".png"
+
         self.loc = "resources/tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
 
 class TileInstance(TileType):
+    """
+    An instance of a tile.
+    Includes a tile type and a location
+    """
     def __init__(self, tile):
+        """
+        :param tile: The tile type
+        """
         self.tile = tile
         self.name = tile.name
         self.gid = tile.gid
@@ -32,17 +42,31 @@ class TileInstance(TileType):
         self.location = None
 
     def tile_print(self):
+        """
+        :return: prints a tiles name and location
+        """
         print self.name + ' @ ' + str(self.location)
 
     def set_location(self, (x, y)):
+        """
+        :param (x, y): the location to set
+        :return: sets the location of the tile
+        """
         self.location = (x, y)
 
 
 class WorldMap(pygame.Surface):
 
     def __init__(self, file_name, (loc_x, loc_y)):
+        """
+        :param file_name: the name of the tmx map
+        :param (loc_x, loc_y): the placement of the top left corner of the map
+        """
         self.screen = screen
-        self.file_name = map_path + file_name + tmx_ext
+
+        #self.file_name = map_path + file_name + tmx_ext
+        self.file_name = os.path.join(map_path, file_name)
+
         xml_file = ElementTree.parse(self.file_name)
         self.root = xml_file.getroot()
         self.tile_types = self.__create_tile_list()
@@ -58,6 +82,9 @@ class WorldMap(pygame.Surface):
         self.loc_y = loc_y
 
     def render_entire_map(self):
+        """
+        :return: renders the entire map to the screen
+        """
         x = 0
         y = 0
         for line in self.tiles:
