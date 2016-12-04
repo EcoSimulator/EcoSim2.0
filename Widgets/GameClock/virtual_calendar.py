@@ -41,6 +41,9 @@ class VirtualCalendar:
         self.month_iterator = self.calendar_obj.itermonthdates(year, month)
         self.__adjust_iterator__(day, year)
 
+        ''' Track Months '''
+        self.current_month = self.date.month
+
     def __adjust_iterator__(self, day, year):
         """
         Private method that adjusts the current
@@ -63,13 +66,23 @@ class VirtualCalendar:
 
         try:
             self.date = self.month_iterator.next()
+
+            if self.current_month != self.date.month:
+                self.current_month = self.date.month
+
+                year = self.date.year #self.date.year + 1 if self.current_month == 1 else self.date.year
+                day = self.date.day
+                self.month_iterator = self.calendar_obj.itermonthdates(year, self.current_month)
+                self.date = self.month_iterator.next()
+                self.__adjust_iterator__(day, year)
+
         except:
-            day = self.date.day
-            month = self.date.month
-            year = self.date.year
+            # No next date. Change Month.
+            year = self.date.year + 1 if self.current_month == 1 else self.date.year
+            month = self.date.month + 1 if self.date.month < 12 else 1
             self.month_iterator = self.calendar_obj.itermonthdates(year, month)
             self.date = self.month_iterator.next()
-            self.__adjust_iterator__(day, year)
+            self.current_month = self.date.month
 
         return self.date
 
@@ -113,7 +126,7 @@ def main():
 
     i=0
     # Display the next 60 Dates
-    while i< 60:
+    while i < 365:
         virtual_calendar.get_next_date()
         i += 1
         print virtual_calendar.date

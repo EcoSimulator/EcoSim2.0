@@ -12,7 +12,6 @@
 #
 
 import pygame
-from pygame.locals import *
 from virtual_calendar import VirtualCalendar
 import time
 
