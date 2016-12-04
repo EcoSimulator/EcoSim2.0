@@ -8,21 +8,15 @@ class TileType:
     width = 30
 
     def __init__(self, name, gid):
+        # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
         self.loc = "Tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
-    def __init2__(self, tile):
-        self.name = tile.name
-        self.gid = tile.gid
-        self.loc = tile.loc
-        self.image = tile.image
-
 
 class TileInstance(TileType):
     def __init__(self, tile):
-        TileType.__init2__(self, tile)
         self.tile = tile
         self.name = tile.name
         self.gid = tile.gid
@@ -39,7 +33,7 @@ class TileInstance(TileType):
 
 class WorldMap(pygame.Surface):
 
-    def __init__(self, file_name):
+    def __init__(self, file_name, (loc_x, loc_y)):
         self.screen = screen
         self.file_name = map_path + file_name + tmx_ext
         xml_file = ElementTree.parse(self.file_name)
@@ -53,6 +47,8 @@ class WorldMap(pygame.Surface):
         self.heightPX = self.height_t * TileType.height
         numbers = layer.find("data").text
         self.tiles = self.__make_tile_matrix(numbers)
+        self.loc_x = loc_x
+        self.loc_y = loc_y
 
     def render_entire_map(self):
         x = 0
@@ -60,8 +56,8 @@ class WorldMap(pygame.Surface):
         for line in self.tiles:
             for tile in line:
                 if tile is not None:
-                    self.screen.blit(tile.image, (x * TileType.width, y * TileType.height))
-                    tile.set_location((x * TileType.height, y * TileType.width))
+                    self.screen.blit(tile.image, (x * TileType.width + self.loc_x, y * TileType.height + self.loc_y))
+                    tile.set_location((x * TileType.width + self.loc_x, y * TileType.height + self.loc_y))
                     x += 1
             x = 0
             y += 1
@@ -84,7 +80,7 @@ class WorldMap(pygame.Surface):
             return None
 
     def get_tile_at_pixel(self, (x, y)):
-        return self.tiles[x/30][y/30]
+        return self.tiles[(x + self.loc_x)/30][(y + self.loc_y)/30]
 
     def set_tile(self, (x, y), tile_rep):
         self.tiles[x/30][y/30] = tile_rep

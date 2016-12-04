@@ -2,12 +2,13 @@ import pygame
 import TiledMap
 from Sprite import SpritePOC
 
+
 def sprite_test():
     pygame.init()
 
     screen = pygame.display.set_mode((800, 800))
 
-    world_map = TiledMap.WorldMap("Map2")
+    world_map = TiledMap.WorldMap("Map2", (23, 23))
 
     world_map.render_entire_map()
 
