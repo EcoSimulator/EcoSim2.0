@@ -1,21 +1,22 @@
 import pygame
 from pygame.locals import *
-from Species import creature
-import sys
+
+from widgets import creatures
+
 
 def display_info(screen, species):
     # get the species
-    # Should improve this later. Maybe fix it up in creature.py.
+    # Should improve this later. Maybe fix it up in creatures.py.
     if(species == "wolf"):
-        animal = creature.Wolf()
+        animal = creatures.Wolf()
     elif(species == "deer"):
-        animal = creature.Deer()
+        animal = creatures.Deer()
     elif(species == "bees"):
-        animal = creature.Bee()
+        animal = creatures.Bee()
     elif(species == "plant"):
-        animal = creature.Plant()
+        animal = creatures.Plant()
     else:
-        animal = creature.NoName()
+        animal = creatures.NoName()
 
     # set various fonts
     pygame.font.init()
@@ -33,12 +34,12 @@ def display_info(screen, species):
     pygame.draw.rect(screen, bg, background_rect)
 
     # display image
-    img = pygame.image.load("Resources/infoscreen/" + animal.getImage())
+    img = pygame.image.load("resources/infoscreen/" + animal.getImage())
     img_rect = Rect((margin, 0), (200, 200))
     screen.blit(img, img_rect)
 
     # create gradient
-    gradient = pygame.image.load("Resources/infoscreen/testgradient.png")
+    gradient = pygame.image.load("resources/infoscreen/testgradient.png")
     gradient_rect = Rect((margin, 0), (screen.get_size()[0] - margin, screen.get_size()[1]))
     screen.blit(gradient, gradient_rect)
     #fill_gradient(screen, color, gradient, gradientRect)

@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
-import PopMonitor
+
+import widgets.pop_monitor
 
 
 class SideBar:
@@ -18,12 +19,12 @@ class SideBar:
         species = ["wolf", "deer", "bees", "plant"]
         itr = 0
         for item in species:
-            PopMonitor.make_monitor(self.screen, itr, item)
+            widgets.pop_monitor.make_monitor(self.screen, itr, item)
             itr += 1
 
         # now add a pause button
         # might want to do this on a more global level
-        pause = pygame.image.load("Resources/sidebar/pausenormal.png")
+        pause = pygame.image.load("resources/sidebar/pausenormal.png")
         pause_y = self.height - 52
         pause_rect = Rect((13, pause_y), (129, 39))
 

@@ -1,9 +1,9 @@
-import TiledMap
+from widgets import tiled_map
 from properties import *
 
 pygame.init()
 
-world_map = TiledMap.WorldMap("Map2", screen)
+world_map = tiled_map.WorldMap("Map2", screen)
 
 world_map.render_entire_map()
 

@@ -2,7 +2,7 @@
 # Author: Jasmine Oliveira
 # Date:   10/2016
 # -----------------------------------------------------------------------------
-# game_clock.py
+# widget___game_clock.py
 # -----------------------------------------------------------------------------
 # Module designed to represent and display a calendar game clock to a pygame
 # surface.
@@ -12,9 +12,9 @@
 #
 
 import pygame
-from pygame.locals import *
-from virtual_calendar import VirtualCalendar
 import time
+
+from widgets.virtual_calendar import VirtualCalendar
 
 
 class GameClock:

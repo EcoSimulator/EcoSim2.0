@@ -8,9 +8,10 @@
 # Does test by creating, and running 3 clocks on a single screen.
 
 import pygame
-from game_clock import GameClock
 import threading
 from threading import Thread
+
+from widgets.widget___game_clock import GameClock
 
 pygame.init()
 

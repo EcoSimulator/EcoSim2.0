@@ -1,6 +1,7 @@
 import pygame
-import TiledMap
-from Sprite import SpritePOC
+
+from sprites import sprite___poc
+from widgets import widget___tiled_map
 
 
 def sprite_test():
@@ -8,12 +9,12 @@ def sprite_test():
 
     screen = pygame.display.set_mode((800, 800))
 
-    world_map = TiledMap.WorldMap("Map2", (23, 23))
+    world_map = widget___tiled_map.WorldMap("map2", (23, 23))
 
     world_map.render_entire_map()
 
-    sprite = SpritePOC.Sprite(world_map)
-    s2 = SpritePOC.Sprite(world_map)
+    sprite = sprite___poc.Sprite(world_map)
+    s2 = sprite___poc.Sprite(world_map)
 
     sprite.spawn(screen)
     s2.spawn(screen)

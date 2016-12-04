@@ -1,12 +1,12 @@
 import pygame
-from Widgets.SidebarWidget import Sidebar
 
-from Widgets.SidebarWidget import PopMonitor
+from widgets import sidebar
+from widgets.SidebarWidget import PopMonitor
 
 pygame.init()
 screen = pygame.display.set_mode((954, 800))
 
-Sidebar.make_sidebar(screen)
+sidebar.make_sidebar(screen)
 
 # need to render map at (0, 154)
 

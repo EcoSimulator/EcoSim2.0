@@ -8,10 +8,14 @@ class TileType:
     width = 30
 
     def __init__(self, name, gid):
+        """
+        :param name:
+        :param gid:
+        """
         # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
-        self.loc = "Tiles/" + name + ".png"
+        self.loc = "resources/tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
 
