@@ -16,11 +16,9 @@ class TileType:
         :param name: file name
         :param gid: gid from the tmx file
         """
-        # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
         self.loc = os.path.join(tiles_dir, name + ".png")
-        #self.loc = "resources/tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
 
@@ -62,10 +60,7 @@ class WorldMap(pygame.Surface):
         :param (loc_x, loc_y): the placement of the top left corner of the map
         """
         self.screen = screen
-
-        #self.file_name = map_path + file_name + tmx_ext
         self.file_name = os.path.join(map_dir, file_name)
-
         xml_file = ElementTree.parse(self.file_name)
         self.root = xml_file.getroot()
         self.tile_types = self.__create_tile_list()
@@ -97,6 +92,10 @@ class WorldMap(pygame.Surface):
         pygame.display.update()
 
     def get_surrounding_movable_tiles(self, tile):
+        """
+        :param tile: the tile a sprite is actually on
+        :return: a list of movable tiles that the sprite could move to
+        """
         y = tile.location[0] / 30
         x = tile.location[1] / 30
         adjacent = [self.__get_tile_by_index((x, (y + 1))),
@@ -126,6 +125,9 @@ class WorldMap(pygame.Surface):
             "Error, tile with gid: " + gid + " not found!"
 
     def __create_tile_list(self):
+        '''
+        :return: the list of tile types
+        '''
         temp_tiles = []
 
         for entry in self.root.findall("tileset"):
