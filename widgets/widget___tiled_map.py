@@ -4,6 +4,9 @@ from properties import *
 
 
 class TileType:
+    """
+    Class representing a type
+    """
     height = 30
     width = 30
 

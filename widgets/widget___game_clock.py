@@ -41,7 +41,7 @@ class GameClock:
         self.clock_font = pygame.font.SysFont("arial", 28, True, False) if font is None else font
 
         ''' Calendar Info '''
-        self.calendar = VirtualCalendar(30, 11, 2016) ## static date for testing
+        self.calendar = VirtualCalendar(30, 11, 2016)  # static date for testing
 
     def run(self):
         """
