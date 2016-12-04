@@ -38,7 +38,7 @@ class VirtualCalendar:
         self.date = None
 
         ''' Initialize Calendar Iterator '''
-        self.month_iterator = self.calendar_obj.itermonthdates(year, month)
+        self.month_iterator = self.calendar_obj.itermonthdays(year, month)
         self.__adjust_iterator__(day, year)
 
     def __adjust_iterator__(self, day, year):

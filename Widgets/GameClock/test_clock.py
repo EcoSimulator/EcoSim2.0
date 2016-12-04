@@ -17,7 +17,6 @@ pygame.init()
 # Get Pygame values
 screen = pygame.display.set_mode((800, 600))
 surface = pygame.Surface(screen.get_size())
-clock = pygame.time.Clock()
 GRID_LOCK = threading.Lock()
 
 # Create Clock subsurface
@@ -25,7 +24,7 @@ minx = 10
 miny = 10
 maxx = 50
 maxy = 50
-r = pygame.Rect(minx,miny,maxx-minx,maxy-miny)
+r = pygame.Rect(minx, miny, maxx-minx, maxy-miny)
 clock_subsurface = surface.subsurface(r)
 
 
