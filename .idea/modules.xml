@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/EcoSim2.0.iml" filepath="$PROJECT_DIR$/.idea/EcoSim2.0.iml" />
-      <module fileurl="file://$USER_HOME$/PycharmProjects/EcoSim/TiledMapAPI/.idea/TiledMapAPI.iml" filepath="$USER_HOME$/PycharmProjects/EcoSim/TiledMapAPI/.idea/TiledMapAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EcoSim2.0.iml" filepath="$PROJECT_DIR$/.idea/EcoSim2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../EcoSim/TiledMapAPI/.idea/TiledMapAPI.iml" filepath="$PROJECT_DIR$/../EcoSim/TiledMapAPI/.idea/TiledMapAPI.iml" />
     </modules>
   </component>
 </project>
