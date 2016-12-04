@@ -19,9 +19,8 @@ class TileType:
         # pygame.Surface.__init__(self, (Tile.width, Tile.height))
         self.name = name
         self.gid = int(gid)
-        #self.loc = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + name + ".png"
-
-        self.loc = "resources/tiles/" + name + ".png"
+        self.loc = os.path.join(tiles_dir, name + ".png")
+        #self.loc = "resources/tiles/" + name + ".png"
         self.image = pyg_image.load(self.loc)
 
 
@@ -65,7 +64,7 @@ class WorldMap(pygame.Surface):
         self.screen = screen
 
         #self.file_name = map_path + file_name + tmx_ext
-        self.file_name = os.path.join(map_path, file_name)
+        self.file_name = os.path.join(map_dir, file_name)
 
         xml_file = ElementTree.parse(self.file_name)
         self.root = xml_file.getroot()
