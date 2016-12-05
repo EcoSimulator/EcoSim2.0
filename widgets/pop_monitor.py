@@ -37,7 +37,7 @@ def make_monitor(screen, itr, species):
 
     for tuple in monitor:
         screen.blit(tuple[0], tuple[1])
-    pygame.display.flip()
+    pygame.display.update()
 
     return monitor
 
@@ -64,7 +64,7 @@ def confirm(screen, species):
     sprite = pygame.image.load("resources/sprites/" +species+ ".png")
     sprite_rect = Rect((200, 200), (24, 24))
     screen.blit(sprite, sprite_rect)
-    pygame.display.flip()
+    pygame.display.update()
 
 
 def update_population(screen, itr, species):
@@ -82,4 +82,4 @@ def update_population(screen, itr, species):
     screen.blit(white, white_rect)
     # blit new text
     screen.blit(label, (num_x, num_y))
-    pygame.display.flip()
+    pygame.display.update()

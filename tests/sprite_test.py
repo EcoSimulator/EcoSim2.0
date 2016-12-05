@@ -1,9 +1,9 @@
 import pygame
 import threading
-#from sprites import sprite___poc
 from widgets import widget___tiled_map
 from threading import Thread
-from sprites.sprite___poc import Sprite
+from sprites.sprite import Sprite
+
 
 def sprite_test():
     pygame.init()
@@ -15,34 +15,35 @@ def sprite_test():
     world_map.render_entire_map()
 
     GRID_LOCK = threading.Lock()
+    image = pygame.image.load("resources/sprites/octopus.png")
 
-    sprite = Sprite(world_map, screen)
-    s2 = Sprite(world_map, screen)
-    s3 = Sprite(world_map, screen)
-    s4 = Sprite(world_map, screen)
+    sprite = Sprite(world_map, screen, image, (10, 10), GRID_LOCK)
+    # s2 = Sprite(world_map, screen, image, (35, 35), GRID_LOCK)
+    # s3 = Sprite(world_map, screen, image, (55, 55), GRID_LOCK)
+    # s4 = Sprite(world_map, screen, image, (80, 80), GRID_LOCK)
 
-    sprite.spawn(screen)
-    s2.spawn(screen)
-    s3.spawn(screen)
-    s4.spawn(screen)
+    sprite.spawn()
+    # s2.spawn()
+    # s3.spawn()
+    # s4.spawn()
     pygame.display.update()
 
-    one = Thread(target=sprite.move_octopus)
+    one = Thread(target=sprite.run)
     one.daemon = True
 
-    two = Thread(target=s2.move_octopus)
-    two.daemon = True
-
-    three = Thread(target=s3.move_octopus)
-    three.daemon = True
-
-    four = Thread(target=s4.move_octopus)
-    four.daemon = True
+    # two = Thread(target=s2.run)
+    # two.daemon = True
+    #
+    # three = Thread(target=s3.run)
+    # three.daemon = True
+    #
+    # four = Thread(target=s4.run)
+    # four.daemon = True
 
     one.start()
-    two.start()
-    three.start()
-    four.start()
+    # two.start()
+    # three.start()
+    # four.start()
     while True:
         pass
     #     pygame.time.delay(1000)

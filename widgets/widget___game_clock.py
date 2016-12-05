@@ -75,7 +75,7 @@ class GameClock:
         #self.subsurface.blit(self.clean_subsurface, (self.x, self.y))
         self.subsurface.blit(time_text, (self.x, self.y))
 
-        pygame.display.flip()  # update pygame
+        pygame.display.update()  # update pygame
 
         # Release Lock
         self.GRID_LOCK.release()

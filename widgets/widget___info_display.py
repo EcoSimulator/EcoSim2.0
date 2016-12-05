@@ -59,7 +59,7 @@ def display_info(screen, species):
     wrap_rect = Rect((x, y), (screen.get_size()[0] - x - 30, screen.get_size()[1] - y - 30))
     drawText(screen, animal.getDesc(), white, wrap_rect, normalFont)
 
-    pygame.display.flip()
+    pygame.display.update()
 
 
 # taken from http://www.pygame.org/wiki/TextWrap

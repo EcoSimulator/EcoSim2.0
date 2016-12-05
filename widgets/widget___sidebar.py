@@ -29,4 +29,4 @@ class SideBar:
         pause_rect = Rect((13, pause_y), (129, 39))
 
         self.screen.blit(pause, pause_rect)
-        pygame.display.flip()
+        pygame.display.update()

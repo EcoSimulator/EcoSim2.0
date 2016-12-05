@@ -12,10 +12,12 @@
 import pygame
 from pygame.locals import *
 import random
+import time
+
 
 class Sprite(pygame.sprite.DirtySprite):
 
-    def __init__(self,world_map, surface, sprite_image, coordinates, GRID_LOCK, rect_size=None):
+    def __init__(self, world_map, screen, sprite_image, coordinates, GRID_LOCK, rect_size=None):
 
         pygame.sprite.DirtySprite.__init__(self)
 
@@ -27,12 +29,11 @@ class Sprite(pygame.sprite.DirtySprite):
         ''' Map Display Data'''
         self.map = world_map
         self.tile = world_map.get_tile_at_pixel(coordinates)
-        #self.tile.tile_print()
         self.rect_size = (24, 24) if rect_size is None else rect_size
         self.rect = Rect(self.tile.location, self.rect_size)
 
         ''' Screen Surface Data '''
-        self.surface = surface
+        self.screen = screen
         self.GRID_LOCK = GRID_LOCK  # Screen GridLOCK (Threading)
 
     def run(self):
@@ -42,33 +43,52 @@ class Sprite(pygame.sprite.DirtySprite):
         self.spawn()
         while True:
             self.move()
+            time.sleep(0.5)
 
     def spawn(self):
-        self.surface.blit(self.image, self.rect)
-        pygame.display.flip()  # update pygame
+        self.tile.set_sprite(self)
+        self.screen.blit(self.image, self.rect)
+        pygame.display.update()  # update pygame
 
     def move(self):
-
-        # Blit a fresh tile in current position #
+        # Blit a fresh tile in current position
         self.display(self.tile.image, self.rect)
 
-        # Get list of adjacent tiles #
+        # removes the sprite from the tile
+        self.tile.set_sprite(None)
+
+        # Get list of adjacent tiles
         adjacent = self.map.get_surrounding_movable_tiles(self.tile)
+        adjacent = self.movable_tile_filter(adjacent)
 
-        # Move to random tile #
-        next_tile_index = self.choose_index(len(adjacent))
-        self.tile = adjacent[next_tile_index]
+        # do nothing if no movable tiles
+        if len(adjacent) != 0:
+            # move to one of the adjacent tiles randomly
+            index = random.randint(0, len(adjacent) - 1)
+            self.tile = adjacent[index]
+            self.rect = Rect(self.tile.location, (24, 24))
+            # put the sprite in the tile
+            self.tile.set_sprite(self)
+            # Blit sprite to screen
+            self.display(self.image, self.rect)
 
-        # Save associated Rect
-        self.rect = Rect(self.tile.location, self.rect_size)
+    def __contains_sprite(self, tile):
+        """
+        :param tile: the tile being check
+        :return: True if no
+        """
+        if tile.contains_sprite is None:
+            return True
+        else:
+            return False
 
-        # Blit sprite to screen
-        self.display(self.image, self.rect)
+    def movable_tile_filter(self, tiles):
+        return filter(self.__contains_sprite, tiles)
 
     def display(self, image, rect):
         self.GRID_LOCK.acquire()        # Lock
-        self.surface.blit(image, rect)  # Blit to surface
-        pygame.display.flip()           # Update pygame
+        self.screen.blit(image, rect)   # Blit to surface
+        pygame.display.update()         # Update pygame
         self.GRID_LOCK.release()        # Release Lock
 
     def choose_index(self, max_index):

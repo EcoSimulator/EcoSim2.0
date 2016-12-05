@@ -24,7 +24,7 @@ class Sprite(pygame.sprite.DirtySprite):
         while True:
             self.screen.blit(self.tile.image, self.rect)
             self.tile.set_sprite(None)
-            adjacent = filter(self.is_water, self.map.get_surrounding_movable_tiles(self.tile))
+            adjacent = self.map.get_surrounding_movable_tiles(self.tile)
             if len(adjacent) != 0:
                 index = random.randint(0, len(adjacent) - 1)
                 self.tile = adjacent[index]
