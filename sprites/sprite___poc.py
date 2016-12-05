@@ -4,6 +4,7 @@ import random
 
 
 class Sprite(pygame.sprite.DirtySprite):
+
     def __init__(self, map):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.image.load("resources/sprites/octopus.png")

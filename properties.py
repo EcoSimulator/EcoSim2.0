@@ -11,4 +11,6 @@ map_dir = os.path.join(resources_dir, "maps")
 
 tiles_dir = os.path.join(resources_dir, "tiles")
 
+sprites_dir = os.path.join(resources_dir, "sprites")
+
 tmx_ext = '.tmx'
