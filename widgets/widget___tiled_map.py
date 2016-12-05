@@ -37,6 +37,7 @@ class TileInstance(TileType):
         self.loc = tile.loc
         self.image = tile.image
         self.location = None
+        self.contains_sprite = None
 
     def tile_print(self):
         """
@@ -50,6 +51,9 @@ class TileInstance(TileType):
         :return: sets the location of the tile
         """
         self.location = (x, y)
+
+    def set_sprite(self, sprite):
+        self.contains_sprite = sprite
 
 
 class WorldMap(pygame.Surface):
@@ -103,7 +107,14 @@ class WorldMap(pygame.Surface):
                     self.__get_tile_by_index(((x + 1), y)),
                     self.__get_tile_by_index(((x - 1), y))]
         adjacent = filter(None, adjacent)
+        adjacent = filter(self.__contains_sprite, adjacent)
         return adjacent
+
+    def __contains_sprite(self, tile):
+        if tile.contains_sprite is None:
+            return True
+        else:
+            return False
 
     def __get_tile_by_index(self, (x, y)):
         if 0 < x < self.height_t and 0 < y < self.width_t:
