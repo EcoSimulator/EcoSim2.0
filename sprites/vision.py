@@ -1,5 +1,7 @@
 """Vision Module"""
 
+import random
+
 
 def vision(distance, world_map, tile):
     """
@@ -8,9 +10,8 @@ def vision(distance, world_map, tile):
     :param tile: the starting tile, should be a sprite current tile
     :return: the set of tiles visible within distance
     """
-    distance -= 1
     vision_set = set(world_map.get_surrounding_movable_tiles(tile))
-    for index in range(0, distance):
+    for index in range(0, distance - 1):
         temp = set()
         for next_tile in vision_set:
             for new_tile in world_map.get_surrounding_movable_tiles(next_tile):
@@ -18,3 +19,39 @@ def vision(distance, world_map, tile):
         vision_set = vision_set.union(temp)
         vision_set.remove(tile)
     return vision_set
+
+
+def find_target(target_list):
+    for tile in target_list:
+        if tile.contains_sprite is not None:
+            return tile
+
+
+def approach(current_tile, target_tile, world_map):
+    relative_x = current_tile.location_t[0] - target_tile.location_t[0]
+    relative_y = current_tile.location_t[1] - target_tile.location_t[1]
+    step_x = 0
+    step_y = 0
+    if random.randint(0, 1) == 0:
+        if relative_x < 0:
+            step_x = -1
+        elif relative_x > 0:
+            step_x = 1
+        elif relative_y < 0:
+            step_y = -1
+        elif relative_y > 0:
+            step_y = 1
+    else:
+        if relative_y < 0:
+            step_y = -1
+        elif relative_y > 0:
+            step_y = 1
+        elif relative_x < 0:
+            step_x = -1
+        elif relative_x > 0:
+            step_x = 1
+    return world_map.get_tile_by_index((current_tile.location_t[0] + step_y, current_tile.location_t[1] + step_x))
+
+
+def flee(current_tile, repelling_tile):
+    pass

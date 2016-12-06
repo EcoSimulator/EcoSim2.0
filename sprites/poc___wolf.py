@@ -11,7 +11,8 @@ class WolfSprite(Sprite):
         self.movable_terrain = world_map.get_all_land_tiles()
 
     def move(self):
-        visible_tiles = vision.vision(2, self.world_map, self.tile)
+        visible_tiles = vision.vision(4, self.world_map, self.tile)
+        # vision.approach(self.tile, vision.find_target(visible_tiles), self.world_map)
         for tile in visible_tiles:
             if tile.contains_sprite is not None:
                 print "I see something! " + " at " + str( tile.name) + str(tile.location_t) + \

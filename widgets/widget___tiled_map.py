@@ -104,14 +104,14 @@ class WorldMap(pygame.Surface):
         """
         y = tile.locationPX[0] / 30
         x = tile.locationPX[1] / 30
-        adjacent = [self.__get_tile_by_index((x, (y + 1))),
-                    self.__get_tile_by_index((x, (y - 1))),
-                    self.__get_tile_by_index(((x + 1), y)),
-                    self.__get_tile_by_index(((x - 1), y))]
+        adjacent = [self.get_tile_by_index((x, (y + 1))),
+                    self.get_tile_by_index((x, (y - 1))),
+                    self.get_tile_by_index(((x + 1), y)),
+                    self.get_tile_by_index(((x - 1), y))]
         adjacent = filter(None, adjacent)
         return adjacent
 
-    def __get_tile_by_index(self, (x, y)):
+    def get_tile_by_index(self, (x, y)):
         if 0 <= x < self.height_t and 0 <= y < self.width_t:
             return self.tiles[x][y]
         else:
