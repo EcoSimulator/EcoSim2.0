@@ -3,18 +3,14 @@ import os
 from properties import *
 from pygame.locals import *
 
-class Button:
-    x = 0
-    y = 0
-    image = ""
-    function = None
-    rect = Rect((0, 0), (0, 0))
 
+class Button:
     def __init__(self, x, y, image, function):
         self.x = x
         self.y = y
         self.image = image
         self.function = function
+        self.rect = Rect((0, 0), (0, 0))
 
     def draw(self):
         self.rect = Rect((self.x, self.y), (90, 27))
@@ -27,5 +23,5 @@ class Button:
         if self.rect.right > mouse[0] > self.rect.left and self.rect.top > mouse[1] > self.rect.bottom:
             return click[0] == 1
 
-    def getFunction(self):
+    def get_function(self):
         return self.function

@@ -1,16 +1,17 @@
 from widgets import widget___button
 
-#array of buttons with monitor loop
-class Button_Group:
-    arr = list()
+# array of buttons with monitor loop
+
+
+class ButtonGroup:
 
     def __init__(self):
-        arr = list()
+        self.arr = list()
 
-    def addButton(self, button):
+    def add_button(self, button):
         self.arr.append(button)
 
-    def monitorButtons(self):
+    def monitor_buttons(self):
         for button in self.arr:
             if button.isPressed():
                 return button.getFunction()
