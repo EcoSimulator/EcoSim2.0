@@ -61,5 +61,36 @@ def approach(current_tile, target_tile, world_map):
     return go_to_tile
 
 
-def flee(current_tile, repelling_tile):
-    pass
+def flee(current_tile, repelling_tile, world_map):
+    relative_x = repelling_tile.location_t[0] - current_tile.location_t[0]
+    relative_y = repelling_tile.location_t[1] - current_tile.location_t[1]
+    step_x = 0
+    step_y = 0
+    lateral_probability = random.randint(0, 3) == 0
+    if relative_x == 0 and lateral_probability:
+        step_x = random.choice((-1, 1))
+    elif relative_y == 0 and lateral_probability:
+        step_y = random.choice((-1, 1))
+    else:
+        if random.randint(0, 1) == 0:
+            if relative_x < 0:
+                step_x = -1
+            elif relative_x > 0:
+                step_x = 1
+            elif relative_y < 0:
+                step_y = -1
+            elif relative_y > 0:
+                step_y = 1
+        else:
+            if relative_y < 0:
+                step_y = -1
+            elif relative_y > 0:
+                step_y = 1
+            elif relative_x < 0:
+                step_x = -1
+            elif relative_x > 0:
+                step_x = 1
+    go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] - step_y, current_tile.location_t[0] - step_x))
+    if go_to_tile is None:
+        flee(current_tile, repelling_tile, world_map)
+    return go_to_tile

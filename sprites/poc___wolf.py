@@ -16,9 +16,5 @@ class WolfSprite(Sprite):
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
             Sprite.move(self, move_to_tile)
-        # for tile in visible_tiles:
-        #     if tile.contains_sprite is not None:
-        #         print "I see something! " + " at " + str( tile.name) + str(tile.location_t) + \
-        #         " from " + str(self.tile.name) + str(self.tile.location_t)
         else:
             Sprite.move(self)
