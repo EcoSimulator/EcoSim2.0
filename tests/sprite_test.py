@@ -1,5 +1,7 @@
 import pygame
+import os
 import threading
+from properties import *
 from widgets import widget___tiled_map
 from threading import Thread
 from sprites.sprite import Sprite
@@ -17,7 +19,7 @@ def sprite_test():
     world_map.render_entire_map()
 
     GRID_LOCK = threading.Lock()
-    image = pygame.image.load("resources/sprites/octopus.png")
+    image = pygame.image.load(os.path.join(sprites_dir, "octopus.png"))
 
     world_map.get_all_land_tiles()
 
