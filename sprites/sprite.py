@@ -22,6 +22,7 @@ class Sprite(pygame.sprite.DirtySprite):
         pygame.sprite.DirtySprite.__init__(self)
 
         ''' Sprite Attributes '''
+        self.type = "sprite"
         self.image = sprite_image
         self.loc_x = coordinates[0]
         self.loc_y = coordinates[1]
@@ -38,6 +39,7 @@ class Sprite(pygame.sprite.DirtySprite):
 
         # set the movable terrain for a default sprites to everything
         self.movable_terrain = world_map.tile_types
+        self.targets = []
 
     def run(self):
         """
@@ -46,7 +48,7 @@ class Sprite(pygame.sprite.DirtySprite):
         self.spawn()
         while True:
             self.move()
-            time.sleep(0.5)
+            time.sleep(0.2)
 
     def spawn(self):
         self.tile.set_sprite(self)
@@ -85,10 +87,10 @@ class Sprite(pygame.sprite.DirtySprite):
             # Blit sprite to screen
             self.display(self.image, self.rect)
 
-    def __contains_sprite(self, tile):
+    def contains_sprite(self, tile):
         """
         :param tile: the tile being check
-        :return: True if no
+        :return: True if no sprite present
         """
         if tile.contains_sprite is None:
             return True
@@ -102,7 +104,7 @@ class Sprite(pygame.sprite.DirtySprite):
             return False
 
     def movable_tile_filter(self, tiles):
-        tiles = filter(self.__contains_sprite, tiles)
+        tiles = filter(self.contains_sprite, tiles)
         tiles = filter(self.is_movable_terrain, tiles)
         return tiles
 

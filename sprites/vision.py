@@ -21,10 +21,12 @@ def vision(distance, world_map, tile):
     return vision_set
 
 
-def find_target(target_list):
-    for tile in target_list:
+def find_target(visible_tiles, targets):
+    for tile in visible_tiles:
         if tile.contains_sprite is not None:
-            return tile
+            for sprite_type in targets:
+                if tile.contains_sprite.type == sprite_type:
+                    return tile
     return False
 
 
@@ -91,6 +93,6 @@ def flee(current_tile, repelling_tile, world_map):
             elif relative_x > 0:
                 step_x = 1
     go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] - step_y, current_tile.location_t[0] - step_x))
-    if go_to_tile is None:
-        flee(current_tile, repelling_tile, world_map)
+    # if go_to_tile is None:
+    #     flee(current_tile, repelling_tile, world_map)
     return go_to_tile

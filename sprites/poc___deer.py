@@ -8,14 +8,16 @@ class DeerSprite(Sprite):
 
     def __init__(self, world_map, screen, coordinates, GRID_LOCK, rect_size=None):
         Sprite.__init__(self, world_map, screen, self.sprite_image, coordinates, GRID_LOCK, rect_size)
+        self.type = "deer"
         self.movable_terrain = world_map.get_all_land_tiles()
+        self.targets = ["wolf"]
 
     def move(self):
         visible_tiles = vision.vision(4, self.world_map, self.tile)
-        target_tile = vision.find_target(visible_tiles)
+        target_tile = vision.find_target(visible_tiles, self.targets)
         if target_tile:
             move_to_tile = vision.flee(self.tile, target_tile, self.world_map)
-            if Sprite.is_movable_terrain(self, move_to_tile):
+            if Sprite.is_movable_terrain(self, move_to_tile) and Sprite.contains_sprite(self, move_to_tile):
                 Sprite.move(self, move_to_tile)
             else:
                 Sprite.move(self)
