@@ -13,6 +13,8 @@ import pygame
 from pygame.locals import *
 import random
 import time
+import threading
+from threading import Thread
 
 
 class Sprite(pygame.sprite.DirtySprite):
@@ -40,13 +42,16 @@ class Sprite(pygame.sprite.DirtySprite):
         # set the movable terrain for a default sprites to everything
         self.movable_terrain = world_map.tile_types
         self.targets = []
+        self.thread = Thread(target=self.run)
+        self.thread.daemon = True
+        self.is_alive = True
 
     def run(self):
         """
         Runs the Sprite
         """
         self.spawn()
-        while True:
+        while self.is_alive:
             self.move()
             time.sleep(0.2)
 
@@ -87,13 +92,22 @@ class Sprite(pygame.sprite.DirtySprite):
             # Blit sprite to screen
             self.display(self.image, self.rect)
 
-    def contains_sprite(self, tile):
+    def die(self):
+        self.display(self.tile.image, self.rect)
+        self.tile.set_sprite(None)
+        self.is_alive = False
+
+    def contains_sprite(self, tile, exceptions=None):
         """
         :param tile: the tile being check
         :return: True if no sprite present
         """
-        if tile.contains_sprite is None:
+        if tile is not None and tile.contains_sprite is None:
             return True
+        elif exceptions is not None:
+            for exception in exceptions:
+                if tile.contains_sprite.type == exception:
+                    return True
         else:
             return False
 

@@ -12,12 +12,14 @@ class WolfSprite(Sprite):
         self.movable_terrain = world_map.get_all_land_tiles()
         self.targets = ["deer"]
 
-    def move(self):
+    def move(self, target=None):
         visible_tiles = vision.vision(4, self.world_map, self.tile)
         target_tile = vision.find_target(visible_tiles, self.targets)
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
-            if Sprite.is_movable_terrain(self, move_to_tile) and Sprite.contains_sprite(self, move_to_tile):
+            if Sprite.is_movable_terrain(self, move_to_tile) and Sprite.contains_sprite(self, move_to_tile, self.targets):
+                if move_to_tile == target_tile:
+                    move_to_tile.contains_sprite.die()
                 Sprite.move(self, move_to_tile)
             else:
                 Sprite.move(self)

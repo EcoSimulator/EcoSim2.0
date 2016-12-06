@@ -12,7 +12,7 @@ class DeerSprite(Sprite):
         self.movable_terrain = world_map.get_all_land_tiles()
         self.targets = ["wolf"]
 
-    def move(self):
+    def move(self, target=None):
         visible_tiles = vision.vision(4, self.world_map, self.tile)
         target_tile = vision.find_target(visible_tiles, self.targets)
         if target_tile:

@@ -34,22 +34,22 @@ def sprite_test():
     s4.spawn()
     pygame.display.update()
 
-    one = Thread(target=s1.run)
-    one.daemon = True
+    # one = Thread(target=s1.run)
+    # one.daemon = True
+    #
+    # two = Thread(target=s2.run)
+    # two.daemon = True
+    #
+    # three = Thread(target=s3.run)
+    # three.daemon = True
+    #
+    # four = Thread(target=s4.run)
+    # four.daemon = True
 
-    two = Thread(target=s2.run)
-    two.daemon = True
-
-    three = Thread(target=s3.run)
-    three.daemon = True
-
-    four = Thread(target=s4.run)
-    four.daemon = True
-
-    one.start()
-    two.start()
-    three.start()
-    four.start()
+    s1.thread.start()
+    s2.thread.start()
+    s3.thread.start()
+    s4.thread.start()
     while True:
         pass
 
