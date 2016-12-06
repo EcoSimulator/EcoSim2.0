@@ -1,5 +1,7 @@
 import pygame
+import os
 from pygame.locals import *
+from properties import *
 
 from widgets import creatures
 
@@ -34,12 +36,12 @@ def display_info(screen, species):
     pygame.draw.rect(screen, bg, background_rect)
 
     # display image
-    img = pygame.image.load("resources/infoscreen/" + animal.getImage())
+    img = pygame.image.load(os.path.join(infoscreen_dir, animal.getImage()))
     img_rect = Rect((margin, 0), (200, 200))
     screen.blit(img, img_rect)
 
     # create gradient
-    gradient = pygame.image.load("resources/infoscreen/testgradient.png")
+    gradient = pygame.image.load(os.path.join(infoscreen_dir, "testgradient" + png_ext))
     gradient_rect = Rect((margin, 0), (screen.get_size()[0] - margin, screen.get_size()[1]))
     screen.blit(gradient, gradient_rect)
     #fill_gradient(screen, color, gradient, gradientRect)

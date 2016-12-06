@@ -1,7 +1,7 @@
 import pygame
 
-from widgets import sidebar
-from widgets.SidebarWidget import PopMonitor
+from widgets import widget__sidebar
+from widgets.SidebarWidget import pop
 
 pygame.init()
 screen = pygame.display.set_mode((954, 800))

@@ -17,4 +17,5 @@ world_map.render_entire_map()
 pygame.display.update()
 
 while True:
-    pass
+    sb.monitor_buttons(screen)
+    pygame.event.get()
