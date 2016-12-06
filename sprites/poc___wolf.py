@@ -1,10 +1,11 @@
 from sprite import Sprite
 import pygame
 import vision
-
+import os
+from properties import *
 
 class WolfSprite(Sprite):
-    sprite_image = pygame.image.load("resources/sprites/wolf.png")
+    sprite_image = pygame.image.load(os.path.join(sprites_dir, "wolf.png"))
 
     def __init__(self, world_map, screen, coordinates, GRID_LOCK, rect_size=None):
         Sprite.__init__(self, world_map, screen, self.sprite_image, coordinates, GRID_LOCK, rect_size)

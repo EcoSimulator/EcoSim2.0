@@ -5,17 +5,16 @@ from pygame.locals import *
 
 from widgets import widget___info_display
 
+
 class PopMonitor:
     screen = None
     arr = list()
     species_list = []
 
-
     def __init__(self, screen):
         self.screen = screen
         self.arr = list()
         self.species_list = []
-
 
     def make_monitor(self, screen, itr, species):
         # We need a few different elements:
@@ -56,7 +55,6 @@ class PopMonitor:
 
         return monitor
 
-
     def monitor_buttons(self, screen):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -72,7 +70,6 @@ class PopMonitor:
                     widget___info_display.display_info(screen, item)
             y1 += dist
             y2 += dist
-
 
     def update_population(self, screen, itr, species):
         font = pygame.font.SysFont("monospace", 22, True, False)
