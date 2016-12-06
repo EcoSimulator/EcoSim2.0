@@ -3,7 +3,7 @@ import threading
 from widgets import widget___tiled_map
 from threading import Thread
 from sprites.sprite import Sprite
-
+from sprites.wolf___poc import WolfSprite
 
 def sprite_test():
     pygame.init()
@@ -17,7 +17,9 @@ def sprite_test():
     GRID_LOCK = threading.Lock()
     image = pygame.image.load("resources/sprites/octopus.png")
 
-    s1 = Sprite(world_map, screen, image, (1, 1), GRID_LOCK)
+    world_map.get_all_land_tiles()
+
+    s1 = WolfSprite(world_map, screen, (1, 1), GRID_LOCK)
     s2 = Sprite(world_map, screen, image, (35, 35), GRID_LOCK)
     s3 = Sprite(world_map, screen, image, (65, 65), GRID_LOCK)
     s4 = Sprite(world_map, screen, image, (95, 95), GRID_LOCK)

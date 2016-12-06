@@ -155,6 +155,16 @@ class WorldMap(pygame.Surface):
             if tile.name.startswith(tile_name):
                 return tile
 
+    def get_all_land_tiles(self):
+        land_tiles = []
+        land_tile_names = ["grass", "veg", "soil"]
+        for tile in self.tile_types:
+            for name in land_tile_names:
+                if tile.name.startswith(name):
+                    land_tiles.append(tile)
+                    break
+        return land_tiles
+
     def __make_tile_matrix(self, num_matrix):
         matrix = num_matrix.split("\n")
         for line in matrix:
