@@ -27,7 +27,7 @@ def sprite_test():
     # s4 = Sprite(world_map, screen, image, (95, 95), GRID_LOCK)
 
     s1.spawn()
-    # s2.spawn()
+    s2.spawn()
     # s3.spawn()
     # s4.spawn()
     pygame.display.update()

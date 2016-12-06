@@ -95,13 +95,15 @@ class Sprite(pygame.sprite.DirtySprite):
         else:
             return False
 
-    def __is_movable_terrain(self, tile):
-        var = tile.tile_type in self.movable_terrain
-        return var
+    def is_movable_terrain(self, tile):
+        if tile is not None:
+            return tile.tile_type in self.movable_terrain
+        else:
+            return False
 
     def movable_tile_filter(self, tiles):
         tiles = filter(self.__contains_sprite, tiles)
-        tiles = filter(self.__is_movable_terrain, tiles)
+        tiles = filter(self.is_movable_terrain, tiles)
         return tiles
 
     def display(self, image, rect):
