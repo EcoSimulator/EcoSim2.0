@@ -46,7 +46,7 @@ def sprite_test():
 
     one.start()
     # two.start()
-    # three.start()
+    three.start()
     # four.start()
     while True:
         pass

@@ -25,11 +25,18 @@ def find_target(target_list):
     for tile in target_list:
         if tile.contains_sprite is not None:
             return tile
+    return False
 
 
 def approach(current_tile, target_tile, world_map):
-    relative_x = current_tile.location_t[0] - target_tile.location_t[0]
-    relative_y = current_tile.location_t[1] - target_tile.location_t[1]
+    """
+    :param current_tile: the tile the approaching sprite occupies
+    :param target_tile: the tile to approach
+    :param world_map:
+    :return: a tile along a path to the target tile
+    """
+    relative_x = target_tile.location_t[0] - current_tile.location_t[0]
+    relative_y = target_tile.location_t[1] - current_tile.location_t[1]
     step_x = 0
     step_y = 0
     if random.randint(0, 1) == 0:
@@ -50,7 +57,8 @@ def approach(current_tile, target_tile, world_map):
             step_x = -1
         elif relative_x > 0:
             step_x = 1
-    return world_map.get_tile_by_index((current_tile.location_t[0] + step_y, current_tile.location_t[1] + step_x))
+    go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] + step_y, current_tile.location_t[0] + step_x))
+    return go_to_tile
 
 
 def flee(current_tile, repelling_tile):
