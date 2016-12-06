@@ -97,9 +97,10 @@ class Sprite(pygame.sprite.DirtySprite):
         self.tile.set_sprite(None)
         self.is_alive = False
 
-    def contains_sprite(self, tile, exceptions=None):
+    def not_contains_sprite(self, tile, exceptions=None):
         """
         :param tile: the tile being check
+        :param exceptions: exceptions for sprite collisions
         :return: True if no sprite present
         """
         if tile is not None and tile.contains_sprite is None:
@@ -118,7 +119,7 @@ class Sprite(pygame.sprite.DirtySprite):
             return False
 
     def movable_tile_filter(self, tiles):
-        tiles = filter(self.contains_sprite, tiles)
+        tiles = filter(self.not_contains_sprite, tiles)
         tiles = filter(self.is_movable_terrain, tiles)
         return tiles
 
