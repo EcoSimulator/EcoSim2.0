@@ -36,21 +36,23 @@ class TileInstance(TileType):
         self.gid = tile_type.gid
         self.loc = tile_type.loc
         self.image = tile_type.image
-        self.location = None
+        self.locationPX = None
+        self.location_t = None
         self.contains_sprite = None
 
     def tile_print(self):
         """
         :return: prints a tiles name and location
         """
-        print self.name + ' @ ' + str(self.location)
+        print self.name + ' @ ' + str(self.locationPX)
 
     def set_location(self, (x, y)):
         """
         :param (x, y): the location to set
         :return: sets the location of the tile
         """
-        self.location = (x, y)
+        self.locationPX = (x, y)
+        self.location_t = (x/30, y/30)
 
     def set_sprite(self, sprite):
         self.contains_sprite = sprite
@@ -100,8 +102,8 @@ class WorldMap(pygame.Surface):
         :param tile: the tile a sprite is actually on
         :return: a list of movable tiles that the sprite could move to
         """
-        y = tile.location[0] / 30
-        x = tile.location[1] / 30
+        y = tile.locationPX[0] / 30
+        x = tile.locationPX[1] / 30
         adjacent = [self.__get_tile_by_index((x, (y + 1))),
                     self.__get_tile_by_index((x, (y - 1))),
                     self.__get_tile_by_index(((x + 1), y)),

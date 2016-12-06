@@ -27,10 +27,10 @@ class Sprite(pygame.sprite.DirtySprite):
         self.loc_y = coordinates[1]
 
         ''' Map Display Data'''
-        self.map = world_map
+        self.world_map = world_map
         self.tile = world_map.get_tile_at_pixel(coordinates)
         self.rect_size = (24, 24) if rect_size is None else rect_size
-        self.rect = Rect(self.tile.location, self.rect_size)
+        self.rect = Rect(self.tile.locationPX, self.rect_size)
 
         ''' Screen Surface Data '''
         self.screen = screen
@@ -55,7 +55,7 @@ class Sprite(pygame.sprite.DirtySprite):
 
     def move(self):
         # Get list of adjacent tiles
-        adjacent = self.map.get_surrounding_movable_tiles(self.tile)
+        adjacent = self.world_map.get_surrounding_movable_tiles(self.tile)
         adjacent = self.movable_tile_filter(adjacent)
 
         # do nothing if no movable tiles
@@ -67,7 +67,7 @@ class Sprite(pygame.sprite.DirtySprite):
             # move to one of the adjacent tiles randomly
             index = random.randint(0, len(adjacent) - 1)
             self.tile = adjacent[index]
-            self.rect = Rect(self.tile.location, (24, 24))
+            self.rect = Rect(self.tile.locationPX, (24, 24))
             # put the sprite in the tile
             self.tile.set_sprite(self)
             # Blit sprite to screen
