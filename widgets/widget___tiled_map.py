@@ -110,7 +110,7 @@ class WorldMap(pygame.Surface):
         return adjacent
 
     def __get_tile_by_index(self, (x, y)):
-        if 0 <= x <= self.height_t and 0 <= y <= self.width_t:
+        if 0 <= x < self.height_t and 0 <= y < self.width_t:
             return self.tiles[x][y]
         else:
             return None
