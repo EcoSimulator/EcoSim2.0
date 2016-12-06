@@ -36,6 +36,9 @@ class Sprite(pygame.sprite.DirtySprite):
         self.screen = screen
         self.GRID_LOCK = GRID_LOCK  # Screen GridLOCK (Threading)
 
+        # set the movable terrain for a default sprites to everything
+        self.movable_terrain = world_map.tile_types
+
     def run(self):
         """
         Runs the Sprite
@@ -80,8 +83,14 @@ class Sprite(pygame.sprite.DirtySprite):
         else:
             return False
 
+    def __is_movable_terrain(self, tile):
+        var = tile.tile_type in self.movable_terrain
+        return var
+
     def movable_tile_filter(self, tiles):
-        return filter(self.__contains_sprite, tiles)
+        tiles = filter(self.__contains_sprite, tiles)
+        tiles = filter(self.__is_movable_terrain, tiles)
+        return tiles
 
     def display(self, image, rect):
         self.GRID_LOCK.acquire()        # Lock

@@ -27,15 +27,15 @@ class TileInstance(TileType):
     An instance of a tile.
     Includes a tile type and a location
     """
-    def __init__(self, tile):
+    def __init__(self, tile_type):
         """
-        :param tile: The tile type
+        :param tile_type: The tile type
         """
-        self.tile = tile
-        self.name = tile.name
-        self.gid = tile.gid
-        self.loc = tile.loc
-        self.image = tile.image
+        self.tile_type = tile_type
+        self.name = tile_type.name
+        self.gid = tile_type.gid
+        self.loc = tile_type.loc
+        self.image = tile_type.image
         self.location = None
         self.contains_sprite = None
 
@@ -149,6 +149,11 @@ class WorldMap(pygame.Surface):
                 water_tile = TileType(attrib['name'], attrib['firstgid'])
                 temp_tiles.insert(water_tile.gid, water_tile)
         return temp_tiles
+
+    def get_tile_type(self, tile_name):
+        for tile in self.tile_types:
+            if tile.name.startswith(tile_name):
+                return tile
 
     def __make_tile_matrix(self, num_matrix):
         matrix = num_matrix.split("\n")
