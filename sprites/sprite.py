@@ -51,18 +51,16 @@ class Sprite(pygame.sprite.DirtySprite):
         pygame.display.update()  # update pygame
 
     def move(self):
-        # Blit a fresh tile in current position
-        self.display(self.tile.image, self.rect)
-
-        # removes the sprite from the tile
-        self.tile.set_sprite(None)
-
         # Get list of adjacent tiles
         adjacent = self.map.get_surrounding_movable_tiles(self.tile)
         adjacent = self.movable_tile_filter(adjacent)
 
         # do nothing if no movable tiles
         if len(adjacent) != 0:
+            # Blit a fresh tile in current position
+            self.display(self.tile.image, self.rect)
+            # removes the sprite from the tile
+            self.tile.set_sprite(None)
             # move to one of the adjacent tiles randomly
             index = random.randint(0, len(adjacent) - 1)
             self.tile = adjacent[index]

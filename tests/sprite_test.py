@@ -17,18 +17,18 @@ def sprite_test():
     GRID_LOCK = threading.Lock()
     image = pygame.image.load("resources/sprites/octopus.png")
 
-    sprite = Sprite(world_map, screen, image, (10, 10), GRID_LOCK)
+    s1 = Sprite(world_map, screen, image, (1, 1), GRID_LOCK)
     s2 = Sprite(world_map, screen, image, (35, 35), GRID_LOCK)
-    s3 = Sprite(world_map, screen, image, (55, 55), GRID_LOCK)
-    s4 = Sprite(world_map, screen, image, (80, 80), GRID_LOCK)
+    s3 = Sprite(world_map, screen, image, (65, 65), GRID_LOCK)
+    s4 = Sprite(world_map, screen, image, (95, 95), GRID_LOCK)
 
-    sprite.spawn()
+    s1.spawn()
     s2.spawn()
     s3.spawn()
     s4.spawn()
     pygame.display.update()
 
-    one = Thread(target=sprite.run)
+    one = Thread(target=s1.run)
     one.daemon = True
 
     two = Thread(target=s2.run)
@@ -46,9 +46,6 @@ def sprite_test():
     four.start()
     while True:
         pass
-    #     pygame.time.delay(1000)
-    #     sprite.move(world_map, screen)
-    #     s2.move(world_map, screen)
-    #     pygame.display.update()
+
 
 sprite_test()

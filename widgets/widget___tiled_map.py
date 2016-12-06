@@ -110,13 +110,13 @@ class WorldMap(pygame.Surface):
         return adjacent
 
     def __get_tile_by_index(self, (x, y)):
-        if 0 < x < self.height_t and 0 < y < self.width_t:
+        if 0 <= x <= self.height_t and 0 <= y <= self.width_t:
             return self.tiles[x][y]
         else:
             return None
 
     def get_tile_at_pixel(self, (x, y)):
-        return self.tiles[(x + self.loc_x)/30][(y + self.loc_y)/30]
+        return self.tiles[x/30][y/30]
 
     def set_tile(self, (x, y), tile_rep):
         self.tiles[x/30][y/30] = tile_rep
