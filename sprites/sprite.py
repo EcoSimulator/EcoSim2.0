@@ -189,6 +189,9 @@ class Sprite(pygame.sprite.DirtySprite):
         """
         return random.randint(0, max_index - 1)
 
+    def update(self):
+        self.thread.start()
+
 
 def main():
     """
