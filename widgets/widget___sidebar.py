@@ -2,7 +2,9 @@ import pygame
 import os
 from properties import *
 from pygame.locals import *
-from widgets.pop_monitor import *
+from widgets.widget___button import *
+from widgets.widget___button_group import *
+from widgets.widget___pop_button import *
 
 
 class SideBar:
@@ -11,28 +13,47 @@ class SideBar:
         self.height = height
         self.sidebar_rect = Rect((0, 0), (154, height))
         self.screen = screen
-        self.monitor = None
+        self.pop_buttons = list()
+        self.buttons = ButtonGroup()
+
 
     def draw(self):
         # draw a rectangle for the background
         pygame.draw.rect(self.screen, (55, 55, 55, 100), self.sidebar_rect)
 
-        # iterate through available species and make monitors for them
-        self.monitor = PopMonitor(screen)
+        # We'll need to pass in a universal list of available species instead of just writing it here.
         species = ["wolf", "deer", "bees", "plant"]
-        itr = 0
-        for item in species:
-            self.monitor.make_monitor(self.screen, itr, item)
-            itr += 1
+        self.make_pop_buttons(species)
 
-        # now add a pause button
-        # might want to do this on a more global level
-        pause = pygame.image.load(os.path.join(sidebar_dir, "pausenormal.png"))
+        # Replace this with a real button
         pause_y = self.height - 52
-        pause_rect = Rect((13, pause_y), (129, 39))
+        pause = Button(self.screen, 13, pause_y, "pausenormal", self.pause)
+        self.buttons.append(pause)
+        pause.draw()
 
-        self.screen.blit(pause, pause_rect)
         pygame.display.update()
 
+
+    def make_pop_buttons(self, list):
+        itr = 0
+        start = (12, 14)
+        for species in list:
+            pop_btn = PopButton(itr, self.screen, start, species)
+            pop_btn.draw()
+            self.pop_buttons.append(pop_btn)
+            itr += 1
+
+
     def monitor_buttons(self, screen):
-        self.monitor.monitor_buttons(screen)
+        for pop_btn in self.pop_buttons:
+            pop_btn.monitor_button()
+        self.buttons.monitor()
+
+
+    # Placeholder until we have a real way of pausing the game.
+    def pause(self):
+        font = pygame.font.SysFont("monospace", 60, True, False)
+        text = "PAUSED"
+        label = font.render(text, 1, (255, 255, 255))
+        self.screen.blit(label, (300, 300))
+        pygame.display.update()

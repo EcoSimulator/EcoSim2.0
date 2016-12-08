@@ -5,23 +5,32 @@ from pygame.locals import *
 
 
 class Button:
-    def __init__(self, x, y, image, function):
+    # Important: When you create a button, make sure to append it to a list, or monitor it continuously.
+    # *args is of variable length. Pass the method name in without parentheses,
+    # then pass as many arguments as necessary, separated by commas.
+    def __init__(self, screen, x, y, image, method, *args):
+        self.screen = screen
         self.x = x
         self.y = y
         self.image = image
-        self.function = function
+        self.method = method
+        self.args = args
         self.rect = Rect((0, 0), (0, 0))
 
+    # At the moment, buttons are all a standard size. We can change this if necessary.
     def draw(self):
         self.rect = Rect((self.x, self.y), (90, 27))
         img = pygame.image.load(os.path.join(buttons_dir, self.image + png_ext))
-        #will need code to add to a universal button collection
+        self.screen.blit(img, self.rect)
+        pygame.display.update()
 
     def is_pressed(self):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
-        if self.rect.right > mouse[0] > self.rect.left and self.rect.top > mouse[1] > self.rect.bottom:
-            return click[0] == 1
+        if self.rect.collidepoint(mouse):
+            if click[0] == 1:
+                self.activate()
 
-    def get_function(self):
-        return self.function
+    def activate(self):
+        result = self.method(*self.args)
+        return result

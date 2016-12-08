@@ -2,6 +2,7 @@ import pygame
 
 from widgets import widget___tiled_map
 from widgets.widget___sidebar import SideBar as s
+from widgets.widget___button import *
 
 pygame.init()
 
