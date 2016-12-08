@@ -11,5 +11,4 @@ class ButtonGroup:
 
     def monitor(self):
         for button in self.arr:
-            if button.is_pressed():
-                button.activate()
+            button.monitor()

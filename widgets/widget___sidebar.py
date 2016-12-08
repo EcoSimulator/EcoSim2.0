@@ -27,7 +27,7 @@ class SideBar:
 
         # Replace this with a real button
         pause_y = self.height - 52
-        pause = Button(self.screen, 13, pause_y, "pausenormal", self.pause)
+        pause = Button(self.screen, (13, pause_y), "pausenormal", self.pause)
         self.buttons.append(pause)
         pause.draw()
 
@@ -35,13 +35,13 @@ class SideBar:
 
 
     def make_pop_buttons(self, list):
-        itr = 0
+        iterator = 0
         start = (12, 14)
         for species in list:
-            pop_btn = PopButton(itr, self.screen, start, species)
+            pop_btn = PopButton(iterator, self.screen, start, species)
             pop_btn.draw()
             self.pop_buttons.append(pop_btn)
-            itr += 1
+            iterator += 1
 
 
     def monitor_buttons(self, screen):

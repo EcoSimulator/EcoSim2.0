@@ -4,17 +4,17 @@ from widgets.widget___info_display import *
 
 class PopButton:
     # This is meant to be called in a loop.
-    def __init__(self, itr, screen, start, species):
-        self.itr = itr          # itr is the loop number, which handles the position of the PopButton.
+    def __init__(self, position, screen, location, species):
+        self.position = position    # The button's position in the list of PopButtons.
         self.screen = screen
-        self.start = start      # Right now, start should be the tuple (12, 14)
-        self.species = species  # String containing the name of the species, for both the sprite and the info screen.
+        self.location = location    # Where the first PopButton in the list appears. Should be (12, 14).
+        self.species = species      # String containing the name of the species, for both the sprite and the info screen.
 
 
     def draw(self):
         monitor = []
-        x = self.start[0]
-        y = self.start[1] + (self.itr * 36) # Each PopButton will be 36 px below the last.
+        x = self.location[0]
+        y = self.location[1] + (self.position * 36) # Each PopButton will be 36 px below the last.
 
         # warning symbol
         warning = pygame.image.load(os.path.join(sidebar_dir, "warningoff" + png_ext))
@@ -22,7 +22,7 @@ class PopButton:
         self.screen.blit(warning, warning_rect)
 
         # button
-        self.button = Button(self.screen, x + 36, y, "popbutton", display_info, self.screen, self.species)
+        self.button = Button(self.screen, (x + 36, y), "popbutton", display_info, self.screen, self.species)
         self.button.draw()
 
         # sprite
@@ -45,7 +45,7 @@ class PopButton:
 
         # generate coordinates and render text
         num_x = 80
-        num_y = (self.itr * 36) + 15
+        num_y = (self.position * 36) + 15
         label = font.render(population, 1, (0, 0, 0))
 
         # draw a white rectangle
