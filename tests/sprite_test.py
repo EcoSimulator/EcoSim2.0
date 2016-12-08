@@ -10,6 +10,7 @@ from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite
+from sprites.poc___bear import BearSprite
 
 
 def sprite_test():
@@ -26,11 +27,12 @@ def sprite_test():
 
     world_map.get_all_land_tile_types()
 
-    s1 = PlantSprite(world_map, GRID_LOCK, (0, 0))
+    s1 = PlantSprite(world_map, GRID_LOCK)
     s2 = DeerSprite(world_map, GRID_LOCK, (50, 50))
-    s3 = DeerSprite(world_map, GRID_LOCK)
+    s3 = WolfSprite(world_map, GRID_LOCK)
     s4 = BeesSprite(world_map, GRID_LOCK)
     s5 = FishSprite(world_map, GRID_LOCK)
+    s6 = BearSprite(world_map, GRID_LOCK)
     # s1.spawn()
     # s2.spawn()
     # s3.spawn()
@@ -54,6 +56,7 @@ def sprite_test():
     s3.thread.start()
     s4.thread.start()
     s5.thread.start()
+    s6.thread.start()
     while True:
         pass
 

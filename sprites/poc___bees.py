@@ -11,16 +11,16 @@ class BeesSprite(Sprite):
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
         self.type = "bees"
-        self.targets = ["plant"]
+        self.prey = ["plant"]
 
     def move(self, target=None):
         visible_tiles = vision.vision(15, self.world_map, self.tile)
         visible_tiles = filter(BeesSprite.pollinated_filter, visible_tiles)
-        target_tile = vision.find_target(visible_tiles, self.targets)
+        target_tile = vision.find_target(visible_tiles, self.prey)
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
             if Sprite.is_movable_terrain(self, move_to_tile) and \
-                    Sprite.not_contains_sprite(self, move_to_tile, self.targets):
+                    Sprite.not_contains_sprite(self, move_to_tile, self.prey):
                 if move_to_tile == target_tile:
                     move_to_tile.contains_sprite.pollinate()
                 Sprite.move(self, move_to_tile)
