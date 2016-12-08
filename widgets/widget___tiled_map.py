@@ -39,12 +39,13 @@ class TileInstance(TileType):
         self.locationPX = None
         self.location_t = None
         self.contains_sprite = None
+        self.ignore_contents = False
 
     def tile_print(self):
         """
         :return: prints a tiles name and location
         """
-        print self.name + ' @ ' + str(self.locationPX)
+        print self.name + ' @ ' + str(self.locationPX) + " with " + self.contains_sprite.type
 
     def set_location(self, (x, y)):
         """

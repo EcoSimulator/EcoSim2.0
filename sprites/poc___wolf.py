@@ -4,6 +4,7 @@ import vision
 import os
 from properties import *
 
+
 class WolfSprite(Sprite):
     sprite_image = pygame.image.load(os.path.join(sprites_dir, "wolf.png"))
 

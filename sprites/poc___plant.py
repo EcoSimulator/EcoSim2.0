@@ -12,24 +12,20 @@ class PlantSprite(Sprite):
         self.type = "plant"
         self.movable_terrain = world_map.get_all_land_tiles()
         self.is_pollinated = False
-        self.polinate_timer = 0
+        self.pollinate_timer = 0
+        self.tile.ignore_contents = True
 
     def move(self, target=None):
         """
         :param target: meaningless to plants, just there to suppress warning
         :return: changes plant pollination on a timer right now
         """
-        self.polinate_timer += 1
-        if self.polinate_timer % 25 == 0:
+        self.pollinate_timer += 1
+        if self.pollinate_timer % 25 == 0:
             self.pollinate()
+        self.tile.set_sprite(self)
+        self.tile.ignore_contents = True
         self.display(self.image, self.rect)
-
-    def spawn(self):
-        """
-        :return: puts the sprite on the map
-        """
-        self.screen.blit(self.image, self.rect)
-        pygame.display.update()  # update pygame
 
     def pollinate(self):
         """

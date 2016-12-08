@@ -129,7 +129,7 @@ class Sprite(pygame.sprite.DirtySprite):
         :param exceptions: exceptions for sprite collisions
         :return: True if no sprite present
         """
-        if tile is not None and tile.contains_sprite is None:
+        if tile is not None and (tile.contains_sprite is None or tile.ignore_contents):
             return True
         elif exceptions is not None:
             for exception in exceptions:
