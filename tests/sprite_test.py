@@ -7,6 +7,7 @@ from threading import Thread
 from sprites.sprite import Sprite
 from sprites.poc___wolf import WolfSprite
 from sprites.poc___deer import DeerSprite
+from sprites.poc___plant import PlantSprite
 
 
 def sprite_test():
@@ -23,16 +24,16 @@ def sprite_test():
 
     world_map.get_all_land_tiles()
 
-    s1 = WolfSprite(world_map, screen, (1, 1), GRID_LOCK)
+    s1 = PlantSprite(world_map, screen, (1, 1), GRID_LOCK)
     s2 = WolfSprite(world_map, screen, (35, 35), GRID_LOCK)
     s3 = DeerSprite(world_map, screen, (65, 65), GRID_LOCK)
     s4 = DeerSprite(world_map, screen, (95, 95), GRID_LOCK)
 
-    s1.spawn()
-    s2.spawn()
-    s3.spawn()
-    s4.spawn()
-    pygame.display.update()
+    # s1.spawn()
+    # s2.spawn()
+    # s3.spawn()
+    # s4.spawn()
+    # pygame.display.update()
 
     # one = Thread(target=s1.run)
     # one.daemon = True

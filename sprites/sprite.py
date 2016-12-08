@@ -20,7 +20,14 @@ from threading import Thread
 class Sprite(pygame.sprite.DirtySprite):
 
     def __init__(self, world_map, screen, sprite_image, coordinates, GRID_LOCK, rect_size=None):
-
+        """
+        :param world_map: the current map
+        :param screen: the current screen
+        :param sprite_image: the image to give to the sprite
+        :param coordinates: where to create the sprite
+        :param GRID_LOCK: thread lock
+        :param rect_size: size of the sprite- defaults to (24, 24)
+        """
         pygame.sprite.DirtySprite.__init__(self)
 
         ''' Sprite Attributes '''
@@ -41,14 +48,17 @@ class Sprite(pygame.sprite.DirtySprite):
 
         # set the movable terrain for a default sprites to everything
         self.movable_terrain = world_map.tile_types
+        # targetable sprite types
+        # used to override collision avoidance
         self.targets = []
+
         self.thread = Thread(target=self.run)
         self.thread.daemon = True
         self.is_alive = True
 
     def run(self):
         """
-        Runs the Sprite
+        :return: Runs the Sprite's thread
         """
         self.spawn()
         while self.is_alive:
@@ -56,11 +66,19 @@ class Sprite(pygame.sprite.DirtySprite):
             time.sleep(0.2)
 
     def spawn(self):
-        self.tile.set_sprite(self)
+        """
+        :return: puts the sprite on the map
+        """
+        self.tile.set_sprite(self)  # adds the sprite to the current tile
         self.screen.blit(self.image, self.rect)
         pygame.display.update()  # update pygame
 
     def move(self, target=None):
+        """
+        :param target: target tile to move to
+        :return: moves the sprite to either a target or randomly
+        """
+        # if the sprite isn't targeting another sprite
         if target is None:
             # Get list of adjacent tiles
             adjacent = self.world_map.get_surrounding_movable_tiles(self.tile)
@@ -80,11 +98,12 @@ class Sprite(pygame.sprite.DirtySprite):
                 self.tile.set_sprite(self)
                 # Blit sprite to screen
                 self.display(self.image, self.rect)
+        # if it is targeting another specific tile
         else:
             self.display(self.tile.image, self.rect)
             # removes the sprite from the tile
             self.tile.set_sprite(None)
-            # move to one of the adjacent tiles randomly
+            # move to the targeted tile
             self.tile = target
             self.rect = Rect(self.tile.locationPX, (24, 24))
             # put the sprite in the tile
@@ -93,9 +112,16 @@ class Sprite(pygame.sprite.DirtySprite):
             self.display(self.image, self.rect)
 
     def die(self):
+        """
+        :return: None, removes sprite from game
+        """
+        # blit over the sprite
+        # remove it from the tile
+        # set it to not alive to end thread
         self.display(self.tile.image, self.rect)
         self.tile.set_sprite(None)
         self.is_alive = False
+
 
     def not_contains_sprite(self, tile, exceptions=None):
         """
@@ -113,12 +139,20 @@ class Sprite(pygame.sprite.DirtySprite):
             return False
 
     def is_movable_terrain(self, tile):
+        """
+        :param tile: tile to check
+        :return: True if the tile can be moved to by the sprite, False otherwise
+        """
         if tile is not None:
             return tile.tile_type in self.movable_terrain
         else:
             return False
 
     def movable_tile_filter(self, tiles):
+        """
+        :param tiles: a list of potential movable tiles
+        :return: the tiles filtered of any none movable tiles
+        """
         tiles = filter(self.not_contains_sprite, tiles)
         tiles = filter(self.is_movable_terrain, tiles)
         return tiles

@@ -22,6 +22,11 @@ def vision(distance, world_map, tile):
 
 
 def find_target(visible_tiles, targets):
+    """
+    :param visible_tiles: the list of visible tiles, found using vision most likely
+    :param targets: the types of sprites the calling sprite can target
+    :return: the first tile that contains a target in range, or False
+    """
     for tile in visible_tiles:
         if tile.contains_sprite is not None:
             for sprite_type in targets:
@@ -64,6 +69,13 @@ def approach(current_tile, target_tile, world_map):
 
 
 def flee(current_tile, repelling_tile, world_map):
+    """
+    :param current_tile: the tile the sprite is currently on
+    :param repelling_tile: the tile the sprite is fleeing from
+    :param world_map:
+    :return: a tile along a path away from the repelling tile
+    makes a not perfect linear flee move 1/3 of the time
+    """
     relative_x = repelling_tile.location_t[0] - current_tile.location_t[0]
     relative_y = repelling_tile.location_t[1] - current_tile.location_t[1]
     step_x = 0
@@ -93,6 +105,7 @@ def flee(current_tile, repelling_tile, world_map):
             elif relative_x > 0:
                 step_x = 1
     go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] - step_y, current_tile.location_t[0] - step_x))
+    # causes a max recursion depth exceeded error, not sure why, not sure we actually need this anyways
     # if go_to_tile is None:
     #     flee(current_tile, repelling_tile, world_map)
     return go_to_tile
