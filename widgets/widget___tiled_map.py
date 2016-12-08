@@ -45,7 +45,10 @@ class TileInstance(TileType):
         """
         :return: prints a tiles name and location
         """
-        print self.name + ' @ ' + str(self.locationPX) + " with " + self.contains_sprite.type
+        if self.contains_sprite:
+            print self.name + ' @ ' + str(self.locationPX) + " with " + self.contains_sprite.type
+        else:
+            print self.name + ' @ ' + str(self.locationPX)
 
     def set_location(self, (x, y)):
         """

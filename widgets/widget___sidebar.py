@@ -8,7 +8,7 @@ from widgets.widget___pop_button import *
 
 
 class SideBar:
-    def __init__(self, screen, height):
+    def __init__(self, height):
         self.width = 154
         self.height = height
         self.sidebar_rect = Rect((0, 0), (154, height))
@@ -27,7 +27,7 @@ class SideBar:
 
         # Replace this with a real button
         pause_y = self.height - 52
-        pause = Button(self.screen, (13, pause_y), "pausenormal", self.pause)
+        pause = Button((13, pause_y), "pausenormal", self.pause)
         self.buttons.append(pause)
         pause.draw()
 
@@ -38,13 +38,13 @@ class SideBar:
         iterator = 0
         start = (12, 14)
         for species in list:
-            pop_btn = PopButton(iterator, self.screen, start, species)
+            pop_btn = PopButton(iterator, start, species)
             pop_btn.draw()
             self.pop_buttons.append(pop_btn)
             iterator += 1
 
 
-    def monitor_buttons(self, screen):
+    def monitor_buttons(self):
         for pop_btn in self.pop_buttons:
             pop_btn.monitor_button()
         self.buttons.monitor()

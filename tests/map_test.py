@@ -1,6 +1,8 @@
 from widgets import widget___tiled_map as tiled_map
 from properties import *
 
+# deprecated. Doesn't matter though
+
 pygame.init()
 screen = pygame.display.set_mode((800, 800))
 
@@ -15,8 +17,8 @@ world_map.render_entire_map()
 world_map.get_tile_at_pixel((30, 30)).tile_print()
 print world_map.get_tile_at_pixel((30, 30))
 
-world_map.get_tile_at_pixel((0, 0)).fill((255, 0, 0))
-world_map.get_tile_at_pixel((0, 0)).blit()
+world_map.get_tile_at_pixel((0, 0)).image.fill((255, 0, 0))
+world_map.get_tile_at_pixel((0, 0)).image.blit(screen)
 pygame.display.update()
 
 while True:

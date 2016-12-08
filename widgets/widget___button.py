@@ -8,7 +8,7 @@ class Button:
     # Important: When you create a button, make sure to append it to a list, or monitor it continuously.
     # *args is of variable length. Pass the method name in without parentheses,
     # then pass as many arguments as necessary, separated by commas.
-    def __init__(self, screen, location, image, method, *args):
+    def __init__(self, location, image, method, *args):
         self.screen = screen
         self.location = location
         self.image = image

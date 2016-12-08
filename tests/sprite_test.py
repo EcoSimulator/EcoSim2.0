@@ -10,6 +10,7 @@ from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 
+
 def sprite_test():
     pygame.init()
 
@@ -24,10 +25,10 @@ def sprite_test():
 
     world_map.get_all_land_tiles()
 
-    s1 = PlantSprite(world_map, screen, (1, 1), GRID_LOCK)
-    s2 = WolfSprite(world_map, screen, (35, 35), GRID_LOCK)
-    s3 = DeerSprite(world_map, screen, (65, 65), GRID_LOCK)
-    s4 = BeesSprite(world_map, screen, (0, 45), GRID_LOCK)
+    s1 = PlantSprite(world_map, (1, 1), GRID_LOCK)
+    s2 = WolfSprite(world_map, (35, 35), GRID_LOCK)
+    s3 = DeerSprite(world_map, (65, 65), GRID_LOCK)
+    s4 = BeesSprite(world_map, (0, 45), GRID_LOCK)
 
     # s1.spawn()
     # s2.spawn()

@@ -15,11 +15,12 @@ import random
 import time
 import threading
 from threading import Thread
+from properties import *
 
 
 class Sprite(pygame.sprite.DirtySprite):
 
-    def __init__(self, world_map, screen, sprite_image, coordinates, GRID_LOCK, rect_size=None):
+    def __init__(self, world_map, sprite_image, coordinates, GRID_LOCK, rect_size=None):
         """
         :param world_map: the current map
         :param screen: the current screen
@@ -194,7 +195,7 @@ def main():
     image_path = os.path.join(sprites_dir, "deer.png")
     image = pygame.image.load(image_path)
 
-    sprite = Sprite(world_map, screen, image, (50, 50), GRID_LOCK)
+    sprite = Sprite(world_map, image, (50, 50), GRID_LOCK)
 
     # Create Thread
     t = Thread(target=sprite.run)

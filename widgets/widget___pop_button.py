@@ -4,7 +4,7 @@ from widgets.widget___info_display import *
 
 class PopButton:
     # This is meant to be called in a loop.
-    def __init__(self, position, screen, location, species):
+    def __init__(self, position, location, species):
         self.position = position    # The button's position in the list of PopButtons.
         self.screen = screen
         self.location = location    # Where the first PopButton in the list appears. Should be (12, 14).
@@ -22,7 +22,7 @@ class PopButton:
         self.screen.blit(warning, warning_rect)
 
         # button
-        self.button = Button(self.screen, (x + 36, y), "popbutton", display_info, self.screen, self.species)
+        self.button = Button((x + 36, y), "popbutton", display_info, self.species)
         self.button.draw()
 
         # sprite

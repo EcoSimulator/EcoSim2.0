@@ -6,16 +6,16 @@ from properties import *
 from widgets import creatures
 
 
-def display_info(screen, species):
+def display_info( species):
     # get the species
     # Should improve this later. Maybe fix it up in creatures.py.
-    if(species == "wolf"):
+    if species == "wolf":
         animal = creatures.Wolf()
-    elif(species == "deer"):
+    elif species == "deer":
         animal = creatures.Deer()
-    elif(species == "bees"):
+    elif species == "bees":
         animal = creatures.Bee()
-    elif(species == "plant"):
+    elif species == "plant":
         animal = creatures.Plant()
     else:
         animal = creatures.NoName()
@@ -59,7 +59,7 @@ def display_info(screen, species):
 
     # use text wrap for description
     wrap_rect = Rect((x, y), (screen.get_size()[0] - x - 30, screen.get_size()[1] - y - 30))
-    drawText(screen, animal.getDesc(), white, wrap_rect, normalFont)
+    drawText(animal.getDesc(), white, wrap_rect, normalFont)
 
     pygame.display.update()
 
