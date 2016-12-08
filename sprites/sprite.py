@@ -34,18 +34,25 @@ class Sprite(pygame.sprite.DirtySprite):
         ''' Sprite Attributes '''
         self.type = "sprite"
         self.image = sprite_image
-        # self.loc_x = coordinates[0]
-        # self.loc_y = coordinates[1]
 
         ''' Map Display Data'''
         self.world_map = world_map
         # set the movable terrain for a default sprites to everything
         self.movable_terrain = world_map.tile_types
 
-        self.tile = None
         # self.tile = world_map.get_tile_at_pixel(coordinates)
         self.rect_size = (24, 24) if rect_size is None else rect_size
-        self.rect = None  # Rect(self.tile.locationPX, self.rect_size)
+
+        if coordinates is None:
+            self.coordinates = None
+            self.tile = None
+            self.rect = None  # Rect(self.tile.locationPX, self.rect_size)
+        else:
+            self.coordinates = coordinates
+            self.loc_x = coordinates[0]
+            self.loc_y = coordinates[1]
+            self.tile = world_map.get_tile_at_pixel(coordinates)
+            self.rect = Rect(self.tile.locationPX, self.rect_size)
 
         ''' Screen Surface Data '''
         self.screen = screen
@@ -55,7 +62,8 @@ class Sprite(pygame.sprite.DirtySprite):
         self.movable_terrain = world_map.tile_types
         # targetable sprite types
         # used to override collision avoidance
-        self.targets = []
+        self.predators = []
+        self.prey = []
 
         self.thread = Thread(target=self.run)
         self.thread.daemon = True
@@ -74,9 +82,10 @@ class Sprite(pygame.sprite.DirtySprite):
         """
         :return: puts the sprite on the map
         """
-        self.possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
-        select = random.randint(0, len(self.possible_spawn_tiles) + 1)
-        self.tile = self.possible_spawn_tiles[select]
+        if self.coordinates is None:
+            possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
+            select = random.randint(0, len(possible_spawn_tiles) + 1)
+            self.tile = possible_spawn_tiles[select]
         self.tile.set_sprite(self)  # adds the sprite to the current tile
         self.rect = Rect(self.tile.locationPX, self.rect_size)
         self.screen.blit(self.image, self.rect)

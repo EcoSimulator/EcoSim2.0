@@ -17,7 +17,7 @@ def sprite_test():
 
     screen = pygame.display.set_mode((800, 800))
 
-    world_map = widget___tiled_map.WorldMap("map1.tmx", (23, 23))
+    world_map = widget___tiled_map.WorldMap("map2.tmx", (23, 23))
 
     world_map.render_entire_map()
 
@@ -26,8 +26,8 @@ def sprite_test():
 
     world_map.get_all_land_tile_types()
 
-    s1 = PlantSprite(world_map, GRID_LOCK)
-    s2 = WolfSprite(world_map, GRID_LOCK)
+    s1 = PlantSprite(world_map, GRID_LOCK, (0, 0))
+    s2 = DeerSprite(world_map, GRID_LOCK, (50, 50))
     s3 = DeerSprite(world_map, GRID_LOCK)
     s4 = BeesSprite(world_map, GRID_LOCK)
     s5 = FishSprite(world_map, GRID_LOCK)
