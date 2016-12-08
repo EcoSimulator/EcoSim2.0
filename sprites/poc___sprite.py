@@ -2,10 +2,11 @@ import pygame
 from pygame.locals import *
 import random
 import time
+from properties import screen
 
 
 class Sprite(pygame.sprite.DirtySprite):
-    def __init__(self, map, screen):
+    def __init__(self, map):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.image.load("resources/sprites/octopus.png")
         self.tile = map.get_tile_at_pixel((random.randint(600, 700), random.randint(600, 700)))

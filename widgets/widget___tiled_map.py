@@ -135,9 +135,9 @@ class WorldMap(pygame.Surface):
             "Error, tile with gid: " + gid + " not found!"
 
     def __create_tile_list(self):
-        '''
+        """
         :return: the list of tile types
-        '''
+        """
         temp_tiles = []
 
         for entry in self.root.findall("tileset"):
@@ -161,7 +161,10 @@ class WorldMap(pygame.Surface):
             if tile.name.startswith(tile_name):
                 return tile
 
-    def get_all_land_tiles(self):
+    def get_all_land_tile_types(self):
+        """
+        :return: returns a list of the land tile types
+        """
         land_tiles = []
         land_tile_names = ["grass", "veg", "soil"]
         for tile in self.tile_types:
@@ -170,6 +173,28 @@ class WorldMap(pygame.Surface):
                     land_tiles.append(tile)
                     break
         return land_tiles
+
+    def get_all_water_tile_types(self):
+        """
+        :return: a list of the water tile types
+        """
+        water_tiles = []
+        water_tile_names = ["water"]
+        for tile in self.tile_types:
+            for name in water_tile_names:
+                if tile.name.startswith(name):
+                    water_tiles.append(tile)
+                    break
+        return water_tiles
+
+    def get_all_tiles_of_types(self, types):
+        all_tiles_of_types = []
+        for row in self.tiles:
+            for tile in row:
+                for tile_type in types:
+                    if tile.tile_type == tile_type:
+                        all_tiles_of_types.append(tile)
+        return all_tiles_of_types
 
     def __make_tile_matrix(self, num_matrix):
         matrix = num_matrix.split("\n")

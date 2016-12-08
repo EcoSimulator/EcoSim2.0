@@ -7,12 +7,15 @@ from properties import *
 class PlantSprite(Sprite):
     sprite_image = pygame.image.load(os.path.join(sprites_dir, "plant.png"))
 
-    def __init__(self, world_map, coordinates, GRID_LOCK, rect_size=None):
-        Sprite.__init__(self, world_map, self.sprite_image, coordinates, GRID_LOCK, rect_size)
+    def __init__(self, world_map, GRID_LOCK, coordinates=None):
+        Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
         self.type = "plant"
-        self.movable_terrain = world_map.get_all_land_tiles()
+        self.movable_terrain = world_map.get_all_land_tile_types()
         self.is_pollinated = False
         self.pollinate_timer = 0
+
+    def spawn(self):
+        Sprite.spawn(self)
         self.tile.ignore_contents = True
 
     def move(self, target=None):

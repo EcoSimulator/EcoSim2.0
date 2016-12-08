@@ -8,10 +8,10 @@ from properties import *
 class WolfSprite(Sprite):
     sprite_image = pygame.image.load(os.path.join(sprites_dir, "wolf.png"))
 
-    def __init__(self, world_map, coordinates, GRID_LOCK, rect_size=None):
-        Sprite.__init__(self, world_map, self.sprite_image, coordinates, GRID_LOCK, rect_size)
+    def __init__(self, world_map, GRID_LOCK, coordinates=None):
+        Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
         self.type = "wolf"
-        self.movable_terrain = world_map.get_all_land_tiles()
+        self.movable_terrain = world_map.get_all_land_tile_types()
         self.targets = ["deer"]
 
     def move(self, target=None):

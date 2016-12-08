@@ -20,7 +20,7 @@ from properties import *
 
 class Sprite(pygame.sprite.DirtySprite):
 
-    def __init__(self, world_map, sprite_image, coordinates, GRID_LOCK, rect_size=None):
+    def __init__(self, world_map, sprite_image, GRID_LOCK, coordinates=None, rect_size=None):
         """
         :param world_map: the current map
         :param screen: the current screen
@@ -34,14 +34,18 @@ class Sprite(pygame.sprite.DirtySprite):
         ''' Sprite Attributes '''
         self.type = "sprite"
         self.image = sprite_image
-        self.loc_x = coordinates[0]
-        self.loc_y = coordinates[1]
+        # self.loc_x = coordinates[0]
+        # self.loc_y = coordinates[1]
 
         ''' Map Display Data'''
         self.world_map = world_map
-        self.tile = world_map.get_tile_at_pixel(coordinates)
+        # set the movable terrain for a default sprites to everything
+        self.movable_terrain = world_map.tile_types
+
+        self.tile = None
+        # self.tile = world_map.get_tile_at_pixel(coordinates)
         self.rect_size = (24, 24) if rect_size is None else rect_size
-        self.rect = Rect(self.tile.locationPX, self.rect_size)
+        self.rect = None  # Rect(self.tile.locationPX, self.rect_size)
 
         ''' Screen Surface Data '''
         self.screen = screen
@@ -70,7 +74,11 @@ class Sprite(pygame.sprite.DirtySprite):
         """
         :return: puts the sprite on the map
         """
+        self.possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
+        select = random.randint(0, len(self.possible_spawn_tiles) + 1)
+        self.tile = self.possible_spawn_tiles[select]
         self.tile.set_sprite(self)  # adds the sprite to the current tile
+        self.rect = Rect(self.tile.locationPX, self.rect_size)
         self.screen.blit(self.image, self.rect)
         pygame.display.update()  # update pygame
 
@@ -195,7 +203,7 @@ def main():
     image_path = os.path.join(sprites_dir, "deer.png")
     image = pygame.image.load(image_path)
 
-    sprite = Sprite(world_map, image, (50, 50), GRID_LOCK)
+    sprite = Sprite(world_map, image, GRID_LOCK, (50, 50))
 
     # Create Thread
     t = Thread(target=sprite.run)

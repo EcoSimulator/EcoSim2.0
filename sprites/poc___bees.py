@@ -8,8 +8,8 @@ from properties import *
 class BeesSprite(Sprite):
     sprite_image = pygame.image.load(os.path.join(sprites_dir, "bees.png"))
 
-    def __init__(self, world_map, coordinates, GRID_LOCK, rect_size=None):
-        Sprite.__init__(self, world_map, self.sprite_image, coordinates, GRID_LOCK, rect_size)
+    def __init__(self, world_map, GRID_LOCK, coordinates=None):
+        Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
         self.type = "bees"
         self.targets = ["plant"]
 
