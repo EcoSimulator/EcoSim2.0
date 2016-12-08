@@ -13,17 +13,15 @@ from sprites.poc___fish import FishSprite
 from sprites.poc___bear import BearSprite
 from groups.group___all_sprites import AllSpritesGroup
 
+
 def sprite_test():
     pygame.init()
-
-    screen = pygame.display.set_mode((800, 800))
 
     world_map = widget___tiled_map.WorldMap("map2.tmx", (23, 23))
 
     world_map.render_entire_map()
 
     GRID_LOCK = threading.Lock()
-    image = pygame.image.load(os.path.join(sprites_dir, "octopus.png"))
 
     world_map.get_all_land_tile_types()
     s1 = PlantSprite(world_map, GRID_LOCK)
@@ -44,30 +42,6 @@ def sprite_test():
     sprites_a.update()
     sprites_b.update()
 
-    # s1.spawn()
-    # s2.spawn()
-    # s3.spawn()
-    # s4.spawn()
-    # pygame.display.update()
-
-    # one = Thread(target=s1.run)
-    # one.daemon = True
-    #
-    # two = Thread(target=s2.run)
-    # two.daemon = True
-    #
-    # three = Thread(target=s3.run)
-    # three.daemon = True
-    #
-    # four = Thread(target=s4.run)
-    # four.daemon = True
-
-    # s1.thread.start()
-    # s2.thread.start()
-    # s3.thread.start()
-    # s4.thread.start()
-    # s5.thread.start()
-    # s6.thread.start()
     while True:
         pass
 
