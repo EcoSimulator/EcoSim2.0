@@ -46,7 +46,7 @@ class SideBar:
 
     def monitor_buttons(self):
         for pop_btn in self.pop_buttons:
-            pop_btn.monitor_button()
+            pop_btn.monitor()
         self.buttons.monitor()
 
 
