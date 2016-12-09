@@ -9,7 +9,6 @@ class Button:
     # *args is of variable length. Pass the method name in without parentheses,
     # then pass as many arguments as necessary, separated by commas.
     def __init__(self, location, image, method, *args):
-        self.screen = screen
         self.location = location
         self.image = image
         self.method = method
@@ -20,7 +19,7 @@ class Button:
     def draw(self):
         self.rect = Rect((self.location[0], self.location[1]), (90, 27))
         img = pygame.image.load(os.path.join(buttons_dir, self.image + png_ext))
-        self.screen.blit(img, self.rect)
+        screen.blit(img, self.rect)
         pygame.display.update()
 
     def monitor(self):
