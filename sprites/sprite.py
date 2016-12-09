@@ -139,6 +139,7 @@ class Sprite(pygame.sprite.DirtySprite):
         self.display(self.tile.image, self.rect)
         self.tile.set_sprite(None)
         self.is_alive = False
+        self.kill()
 
 
     def not_contains_sprite(self, tile, exceptions=None):

@@ -7,7 +7,7 @@ import time
 
 
 class BearSprite(Sprite):
-    sprite_image = pygame.image.load(os.path.join(sprites_dir, "bear.png"))
+    sprite_image = pygame.image.load(os.path.join(sprites_dir, "skull.png"))
 
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
