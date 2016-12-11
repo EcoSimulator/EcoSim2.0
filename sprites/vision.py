@@ -30,8 +30,9 @@ def find_target(visible_tiles, targets):
     for tile in visible_tiles:
         if tile.contains_sprite is not None:
             for sprite_type in targets:
-                if tile.contains_sprite is not None and tile.contains_sprite.type == sprite_type:
-                    return tile
+                if tile.contains_sprite is not None:
+                    if tile.contains_sprite.type == sprite_type:
+                        return tile
     return False
 
 

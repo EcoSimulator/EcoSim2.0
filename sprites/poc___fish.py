@@ -6,7 +6,7 @@ import random
 
 
 class FishSprite(Sprite):
-    sprite_image = pygame.image.load(os.path.join(sprites_dir, "octopus.png"))
+    sprite_image = pygame.image.load(os.path.join(sprites_dir, "salmon.png"))
 
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
