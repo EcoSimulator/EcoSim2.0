@@ -10,13 +10,14 @@ from sprites.sprite import Sprite
 from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
 from sprites.sprite___bear import BearSprite
+from sprites.sprite___salmon import SalmonSprite
 
 ''' POC Tests '''
 #from sprites.poc___wolf import WolfSprite
 #from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
-from sprites.poc___fish import FishSprite
+#from sprites.poc___fish import FishSprite
 from sprites.poc___bear import BearSprite
 from groups.group___all_sprites import AllSpritesGroup
 from groups.group____fish import FishGroup
@@ -48,7 +49,7 @@ def sprite_test():
     s3 = WolfSprite(world_map, GRID_LOCK)
 
     s4 = BeesSprite(world_map, GRID_LOCK)
-    s5 = FishSprite(world_map, GRID_LOCK)
+    s5 = SalmonSprite(world_map, GRID_LOCK)
     s6 = BearSprite(world_map, GRID_LOCK)
 
     s7 = BearSprite(world_map, GRID_LOCK)

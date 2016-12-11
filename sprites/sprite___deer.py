@@ -41,7 +41,7 @@ class DeerSprite(AnimalSprite):
         target_tile = vision.find_target(visible_tiles, self.targets)
         if target_tile:
             move_to_tile = vision.flee(self.tile, target_tile, self.world_map)
-            if self.is_movable_terrain(self, move_to_tile) and self.not_contains_sprite(self, move_to_tile):
+            if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile):
                 AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
