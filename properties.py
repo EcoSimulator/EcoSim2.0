@@ -1,8 +1,10 @@
 import pygame
 import os
 
+''' Global Game Screen '''
 screen = pygame.display.set_mode((800, 800))
 
+''' Resources Path Directories '''
 program_dir = os.path.dirname(os.path.realpath(__file__))
 
 resources_dir = os.path.join(program_dir, "resources")
