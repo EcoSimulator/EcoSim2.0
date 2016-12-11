@@ -5,8 +5,10 @@ from properties import *
 from widgets import widget___tiled_map
 from threading import Thread
 from sprites.sprite import Sprite
-from sprites.poc___wolf import WolfSprite
-from sprites.poc___deer import DeerSprite
+from sprites.sprite___deer import DeerSprite
+from sprites.sprite___wolf import WolfSprite
+#from sprites.poc___wolf import WolfSprite
+#from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite

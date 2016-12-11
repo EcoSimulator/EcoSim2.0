@@ -5,7 +5,7 @@ class AnimalSprite(Sprite):
 
     def __init__(self, world_map, sprite_image, GRID_LOCK,
                  health_bar, speed, vision, coordinates=None):
-        super(AnimalSprite, self).__init__(world_map, sprite_image, coordinates)
+        super(AnimalSprite, self).__init__(world_map, sprite_image, GRID_LOCK, coordinates)
 
         self.health_bar = health_bar
         self.speed = speed

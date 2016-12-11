@@ -15,10 +15,10 @@ class DeerSprite(AnimalSprite):
 
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         """
-
-        :param world_map:
-        :param coordinates:
-        :param GRID_LOCK:
+        Create a DeerSprite object
+        :param world_map: WorldMap Object
+        :param coordinates: Array of coordinates [x,y]
+        :param GRID_LOCK: Lock for screen (for threading)
         """
 
         ''' Take parameters, and Sprite Constants '''
