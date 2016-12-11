@@ -5,8 +5,13 @@ from properties import *
 from widgets import widget___tiled_map
 from threading import Thread
 from sprites.sprite import Sprite
+
+''' New Architecture Tests'''
 from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
+from sprites.sprite___bear import BearSprite
+
+''' POC Tests '''
 #from sprites.poc___wolf import WolfSprite
 #from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
