@@ -20,19 +20,18 @@ class WolfSprite(AnimalSprite):
         """
         Create a WolfSprite object
         :param world_map: WorldMap Object
-        :param screen: Pygame surface object
         :param coordinates: Array of coordinates [x,y]
         :param GRID_LOCK: Lock for screen (for threading)
         """
 
         ''' Take parameters, and Sprite Constants '''
         super(WolfSprite, self).__init__(world_map, WolfSprite.IMAGE,
-                                        coordinates, GRID_LOCK, WolfSprite.HEALTH_BAR,
-                                        WolfSprite.AVG_SPEED, WolfSprite.VISION)
+                                        GRID_LOCK, WolfSprite.HEALTH_BAR,
+                                        WolfSprite.AVG_SPEED, WolfSprite.VISION, coordinates)
 
         self.type = "wolf"
         self.targets = ["deer"]
-        self.movable_terrain = []
+        self.movable_terrain = world_map.get_all_land_tile_types()
 
     def move(self):
         """
@@ -71,14 +70,10 @@ def main():
     # Threading
     GRID_LOCK = threading.Lock()
 
-    sprite = WolfSprite(world_map, [10, 10], GRID_LOCK)
-
     # Create Thread
-    t = Thread(target=sprite.run)
-    t.daemon = True
+    sprite = WolfSprite(world_map, [10, 10], GRID_LOCK)
+    sprite.thread.start()
 
-    # Run Sprite
-    t.start()
 
     # Loop until Pygame exits
     done = False

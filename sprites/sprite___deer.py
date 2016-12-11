@@ -13,7 +13,7 @@ class DeerSprite(AnimalSprite):
     AVG_SPEED = 0.2
     VISION = 4
 
-    def __init__(self, world_map, coordinates, GRID_LOCK):
+    def __init__(self, world_map, GRID_LOCK, coordinates=None):
         """
 
         :param world_map:
@@ -22,10 +22,9 @@ class DeerSprite(AnimalSprite):
         """
 
         ''' Take parameters, and Sprite Constants '''
-        super(DeerSprite, self).__init__(world_map, screen, DeerSprite.IMAGE,
-                                        coordinates, GRID_LOCK, DeerSprite.HEALTH_BAR,
+        super(DeerSprite, self).__init__(world_map, DeerSprite.IMAGE, GRID_LOCK,
                                         DeerSprite.HEALTH_BAR, DeerSprite.AVG_SPEED,
-                                        DeerSprite.VISION)
+                                        DeerSprite.VISION, coordinates)
 
         self.type = "deer"
         self.targets = ["wolf"]
@@ -46,4 +45,38 @@ class DeerSprite(AnimalSprite):
                 AnimalSprite.move(self)
         else:
             AnimalSprite.move(self)
+
+
+def main():
+    """
+    Sprite Implementation Example
+    """
+    from widgets.widget___tiled_map import WorldMap
+    import pygame
+    import threading
+    from threading import Thread
+    pygame.init()
+
+    # Map Setup
+    screen = pygame.display.set_mode((800, 800))
+    world_map = WorldMap("map2.tmx", (23, 23))
+    world_map.render_entire_map()
+
+    # Threading
+    GRID_LOCK = threading.Lock()
+
+    # Create Thread
+    sprite = DeerSprite(world_map, [10, 10], GRID_LOCK)
+    sprite.thread.start()
+
+
+    # Loop until Pygame exits
+    done = False
+    while not done:
+        for event in pygame.event.get():  # User did something
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
+if __name__ == '__main__':
+    main()
 
