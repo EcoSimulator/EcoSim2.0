@@ -104,30 +104,24 @@ class Sprite(pygame.sprite.DirtySprite):
 
             # do nothing if no movable tiles
             if len(adjacent) != 0:
-                # Blit a fresh tile in current position
-                self.display(self.tile.image, self.rect)
-                # removes the sprite from the tile
-                self.tile.set_sprite(None)
-                # move to one of the adjacent tiles randomly
                 index = random.randint(0, len(adjacent) - 1)
-                self.tile = adjacent[index]
-                self.rect = Rect(self.tile.locationPX, (24, 24))
-                # put the sprite in the tile
-                self.tile.set_sprite(self)
-                # Blit sprite to screen
-                self.display(self.image, self.rect)
+                target = adjacent[index]
+                self.display(target)
         # if it is targeting another specific tile
         else:
-            self.display(self.tile.image, self.rect)
-            # removes the sprite from the tile
-            self.tile.set_sprite(None)
-            # move to the targeted tile
-            self.tile = target
-            self.rect = Rect(self.tile.locationPX, (24, 24))
-            # put the sprite in the tile
-            self.tile.set_sprite(self)
-            # Blit sprite to screen
-            self.display(self.image, self.rect)
+            self.display(target)
+
+    def display(self, target):
+        self.tile.set_sprite(None)
+        self.GRID_LOCK.acquire()
+        self.screen.blit(self.tile.image, self.rect)   # Blit to surface
+        self.tile = target
+        self.rect = Rect(self.tile.locationPX, (24, 24))
+        # put the sprite in the tile
+        self.screen.blit(self.image, self.rect)
+        pygame.display.update()
+        self.GRID_LOCK.release()
+        self.tile.set_sprite(self)
 
     def die(self):
         """
@@ -136,11 +130,10 @@ class Sprite(pygame.sprite.DirtySprite):
         # blit over the sprite
         # remove it from the tile
         # set it to not alive to end thread
-        self.display(self.tile.image, self.rect)
+        self.display(self.tile)
         self.tile.set_sprite(None)
         self.is_alive = False
         self.kill()
-
 
     def not_contains_sprite(self, tile, exceptions=None):
         """
@@ -175,12 +168,6 @@ class Sprite(pygame.sprite.DirtySprite):
         tiles = filter(self.not_contains_sprite, tiles)
         tiles = filter(self.is_movable_terrain, tiles)
         return tiles
-
-    def display(self, image, rect):
-        self.GRID_LOCK.acquire()        # Lock
-        self.screen.blit(image, rect)   # Blit to surface
-        pygame.display.update()         # Update pygame
-        self.GRID_LOCK.release()        # Release Lock
 
     def choose_index(self, max_index):
         """

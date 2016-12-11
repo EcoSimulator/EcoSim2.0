@@ -44,6 +44,12 @@ def sprite_test():
     s5 = FishSprite(world_map, GRID_LOCK)
     s6 = BearSprite(world_map, GRID_LOCK)
 
+    s7 = BearSprite(world_map, GRID_LOCK)
+    s8 = BearSprite(world_map, GRID_LOCK)
+    s9 = BearSprite(world_map, GRID_LOCK)
+    s10 = BearSprite(world_map, GRID_LOCK)
+    s11 = BearSprite(world_map, GRID_LOCK)
+    s12 = BearSprite(world_map, GRID_LOCK)
     # s1.update()
     # s2.update()
     # s3.update()
@@ -54,6 +60,12 @@ def sprite_test():
     sprites.add_to_correct_group(s4)
     sprites.add_to_correct_group(s5)
     sprites.add_to_correct_group(s6)
+    sprites.add_to_correct_group(s7)
+    sprites.add_to_correct_group(s8)
+    sprites.add_to_correct_group(s9)
+    sprites.add_to_correct_group(s10)
+    sprites.add_to_correct_group(s11)
+    sprites.add_to_correct_group(s12)
 
     fish_group.update()
     bear_group.update()
@@ -61,8 +73,9 @@ def sprite_test():
     wolf_group.update()
     deer_group.update()
     plant_group.update()
-    # sprites.update()
 
+    # sprites.update()
+    #
 
     done = False
     while not done:
