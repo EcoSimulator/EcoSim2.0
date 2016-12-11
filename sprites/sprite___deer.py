@@ -27,21 +27,25 @@ class DeerSprite(AnimalSprite):
                                         DeerSprite.VISION, coordinates)
 
         self.type = "deer"
-        self.targets = ["wolf"]
+        self.predators = ["wolf"]
+        self.prey = ["plant"]
         self.movable_terrain = world_map.get_all_land_tile_types()
 
-    def move(self):
-        """
-        @Override
-            Move sprite to a specified target tile (target).
-            Otherwise, moves sprite to a random adjacent tile.
-        :param target: Target tile to move sprite.
-        """
-        visible_tiles = vision.vision(self.vision, self.world_map, self.tile)
-        target_tile = vision.find_target(visible_tiles, self.targets)
-        if target_tile:
-            move_to_tile = vision.flee(self.tile, target_tile, self.world_map)
-            if self.is_movable_terrain(self, move_to_tile) and self.not_contains_sprite(self, move_to_tile):
+    def move(self, target=None):
+        visible_tiles = vision.vision(4, self.world_map, self.tile)
+        flight_tile = vision.find_target(visible_tiles, self.predators)
+        target_tile = vision.find_target(visible_tiles, self.prey)
+        if flight_tile:
+            move_to_tile = vision.flee(self.tile, flight_tile, self.world_map)
+            if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile):
+                AnimalSprite.move(self, move_to_tile)
+            else:
+                AnimalSprite.move(self)
+        elif target_tile:
+            move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
+            if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
+                if move_to_tile == target_tile:
+                    move_to_tile.contains_sprite.die()
                 AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
@@ -68,7 +72,7 @@ def main():
     GRID_LOCK = threading.Lock()
 
     # Create Thread
-    sprite = DeerSprite(world_map, GRID_LOCK, [10,10])
+    sprite = DeerSprite(world_map, [10, 10], GRID_LOCK)
     sprite.thread.start()
 
 

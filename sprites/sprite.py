@@ -84,10 +84,10 @@ class Sprite(pygame.sprite.DirtySprite):
         """
         if self.coordinates is None:
             possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
-            select = random.randint(0, len(possible_spawn_tiles) + 1)
+            select = random.randint(0, len(possible_spawn_tiles))
             self.tile = possible_spawn_tiles[select]
+            self.rect = Rect(self.tile.locationPX, self.rect_size)
         self.tile.set_sprite(self)  # adds the sprite to the current tile
-        self.rect = Rect(self.tile.locationPX, self.rect_size)
         self.screen.blit(self.image, self.rect)
         pygame.display.update()  # update pygame
 
