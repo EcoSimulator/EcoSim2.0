@@ -16,7 +16,6 @@ class SideBar:
         self.pop_buttons = list()
         self.buttons = ButtonGroup()
 
-
     def draw(self):
         # draw a rectangle for the background
         pygame.draw.rect(self.screen, (55, 55, 55, 100), self.sidebar_rect)
@@ -33,7 +32,6 @@ class SideBar:
 
         pygame.display.update()
 
-
     def make_pop_buttons(self, list):
         iterator = 0
         start = (12, 14)
@@ -43,12 +41,10 @@ class SideBar:
             self.pop_buttons.append(pop_btn)
             iterator += 1
 
-
     def monitor_buttons(self):
         for pop_btn in self.pop_buttons:
             pop_btn.monitor()
         self.buttons.monitor()
-
 
     # Placeholder until we have a real way of pausing the game.
     def pause(self):

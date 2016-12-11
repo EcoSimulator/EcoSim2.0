@@ -16,7 +16,6 @@ class PopButton(Button):
         self.endangered = 1
         self.extinct = 2
 
-
     def draw(self):
         self.x = self.location[0]
         self.y = self.location[1] + (self.position * 36) # Each PopButton will be 36 px below the last.
@@ -37,10 +36,8 @@ class PopButton(Button):
 
         self.update_population(0)   # random number because it needs an arg
 
-
     def activate(self):
         return self.method(self.species)
-
 
     def update_warning(self, level):
         # Determine conservation status of the species
@@ -55,7 +52,6 @@ class PopButton(Button):
         warning_rect = Rect((self.x, self.y + 1), (27, 24))
         self.screen.blit(warning, warning_rect)
         pygame.display.update()
-
 
     def update_population(self, pop):
         font = pygame.font.SysFont("monospace", 22, True, False)
