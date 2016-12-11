@@ -28,7 +28,7 @@ class PlantSprite(Sprite):
             self.pollinate()
         self.tile.set_sprite(self)
         self.tile.ignore_contents = True
-        self.display(self.image, self.rect)
+        self.display(self.tile)
 
     def pollinate(self):
         """

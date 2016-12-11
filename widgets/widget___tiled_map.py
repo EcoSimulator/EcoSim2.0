@@ -187,6 +187,15 @@ class WorldMap(pygame.Surface):
                     break
         return water_tiles
 
+    def get_types_by_names(self, tile_names):
+        tile_types = []
+        for tile_type in self.tile_types:
+            for tile_name in tile_names:
+                current_tile_type = self.get_tile_type(tile_name)
+                if tile_type == current_tile_type:
+                    tile_types.append(tile_type)
+        return tile_types
+
     def get_all_tiles_of_types(self, types):
         all_tiles_of_types = []
         for row in self.tiles:

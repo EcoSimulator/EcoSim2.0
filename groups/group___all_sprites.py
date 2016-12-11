@@ -4,7 +4,6 @@ import pygame
 class AllSpritesGroup(pygame.sprite.Group):
     def __init__(self, subgroups, *sprites):
         self.subgroups = subgroups
-        print sprites
         for sprite in sprites:
             for group in subgroups:
                 if sprite.type == group.type:
