@@ -6,7 +6,7 @@ from widgets.widget___button import *
 
 
 # We'll need to pass a map param.
-class GameScren:
+class GameScreen:
     def __init__(self, map_name):
         world_map = widget___tiled_map.WorldMap(map_name + tmx_ext, (155, 0))
         screen = pygame.display.set_mode((world_map.widthPX + 154, world_map.heightPX))
