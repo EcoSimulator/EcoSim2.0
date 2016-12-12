@@ -2,6 +2,7 @@
 import os
 import pygame
 import vision
+import random
 
 ''' Import Classes '''
 from sprite___animal import AnimalSprite
@@ -32,6 +33,7 @@ class WolfSprite(AnimalSprite):
         self.type = "wolf"
         self.prey = ["deer"]
         self.movable_terrain = world_map.get_all_land_tile_types()
+        self.is_leader = False
 
     def move(self):
         """
@@ -46,10 +48,37 @@ class WolfSprite(AnimalSprite):
                 if move_to_tile == target_tile:
                     move_to_tile.contains_sprite.die()
                 AnimalSprite.move(self, move_to_tile)
+            elif not self.is_leader:
+                leader_tile = self.find_leader(visible_tiles)
+                if leader_tile:
+                    move_to_tile = vision.approach(self.tile, leader_tile, self.world_map)
+                    if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
+                        AnimalSprite.move(self, move_to_tile)
+                else:
+                    AnimalSprite.move(self)
+            else:
+                AnimalSprite.move(self)
+        elif not self.is_leader:
+            leader_tile = self.find_leader(visible_tiles)
+            if leader_tile:
+                move_to_tile = vision.approach(self.tile, leader_tile, self.world_map)
+                if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
+                    AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
         else:
             AnimalSprite.move(self)
+
+    def find_leader(self, visible_tiles):
+        for row in self.world_map.tiles:
+            for tile in row:
+                sprite = tile.contains_sprite
+                if sprite is not None:
+                    if sprite.type == "wolf" and sprite.is_leader:
+                        tiles = self.world_map.get_surrounding_movable_tiles(tile)
+                        index = random.randint(0, len(tiles) - 1)
+                        return tiles[index]
+        return False
 
 
 def main():
