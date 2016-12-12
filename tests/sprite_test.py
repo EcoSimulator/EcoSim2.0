@@ -5,15 +5,10 @@ from properties import *
 from widgets import widget___tiled_map
 from threading import Thread
 from sprites.sprite import Sprite
-
-''' New Architecture Tests'''
 from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
-from sprites.sprite___bear import BearSprite
-
-''' POC Tests '''
-#from sprites.poc___wolf import WolfSprite
-#from sprites.poc___deer import DeerSprite
+# from sprites.poc___wolf import WolfSprite
+# from sprites.poc___deer import DeerSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite
@@ -43,17 +38,19 @@ def sprite_test():
     deer_group = DeerGroup()
     plant_group = PlantGroup()
 
-    s1 = PlantSprite(world_map, GRID_LOCK)
-    s2 = DeerSprite(world_map, GRID_LOCK, (50, 50))
-    s3 = WolfSprite(world_map, GRID_LOCK)
+    s1 = PlantSprite(world_map, GRID_LOCK, (0, 0))
+    s2 = DeerSprite(world_map, GRID_LOCK, (100, 100))
+    s3 = WolfSprite(world_map, GRID_LOCK, (50, 50))
 
+    s2.thread.start()
+    s3.thread.start()
     s4 = BeesSprite(world_map, GRID_LOCK)
     s5 = FishSprite(world_map, GRID_LOCK)
     s6 = BearSprite(world_map, GRID_LOCK)
 
-    s7 = BearSprite(world_map, GRID_LOCK)
-    s8 = BearSprite(world_map, GRID_LOCK)
-    s9 = BearSprite(world_map, GRID_LOCK)
+    s7 = FishSprite(world_map, GRID_LOCK)
+    s8 = FishSprite(world_map, GRID_LOCK)
+    s9 = FishSprite(world_map, GRID_LOCK)
     s10 = BearSprite(world_map, GRID_LOCK)
     s11 = BearSprite(world_map, GRID_LOCK)
     s12 = BearSprite(world_map, GRID_LOCK)
@@ -63,23 +60,23 @@ def sprite_test():
     # s4.update()
     # s5.update()
     # s6.update()
-    sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3)
-    sprites.add_to_correct_group(s4)
-    sprites.add_to_correct_group(s5)
-    sprites.add_to_correct_group(s6)
-    sprites.add_to_correct_group(s7)
-    sprites.add_to_correct_group(s8)
-    sprites.add_to_correct_group(s9)
-    sprites.add_to_correct_group(s10)
-    sprites.add_to_correct_group(s11)
-    sprites.add_to_correct_group(s12)
-
-    fish_group.update()
-    bear_group.update()
-    bees_group.update()
-    wolf_group.update()
-    deer_group.update()
-    plant_group.update()
+    # sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3)
+    # sprites.add_to_correct_group(s4)
+    # sprites.add_to_correct_group(s5)
+    # sprites.add_to_correct_group(s6)
+    # sprites.add_to_correct_group(s7)
+    # sprites.add_to_correct_group(s8)
+    # sprites.add_to_correct_group(s9)
+    # sprites.add_to_correct_group(s10)
+    # sprites.add_to_correct_group(s11)
+    # sprites.add_to_correct_group(s12)
+    # deer_group.update()
+    #
+    # fish_group.update()
+    # bear_group.update()
+    # bees_group.update()
+    # wolf_group.update()
+    # plant_group.update()
 
     # sprites.update()
     #
