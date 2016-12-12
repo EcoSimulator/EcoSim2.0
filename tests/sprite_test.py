@@ -11,14 +11,15 @@ from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
 from sprites.sprite___bear import BearSprite
 from sprites.sprite___salmon import SalmonSprite
-
+from sprites.sprite___plant import PlantSprite
+from sprites.sprite___bees import BeesSprite
 ''' POC Tests '''
 #from sprites.poc___wolf import WolfSprite
 #from sprites.poc___deer import DeerSprite
-from sprites.poc___plant import PlantSprite
-from sprites.poc___bees import BeesSprite
+#from sprites.poc___plant import PlantSprite
+#from sprites.poc___bees import BeesSprite
 #from sprites.poc___fish import FishSprite
-from sprites.poc___bear import BearSprite
+#from sprites.poc___bear import BearSprite
 from groups.group___all_sprites import AllSpritesGroup
 from groups.group____fish import FishGroup
 from groups.group____wolf import WolfGroup

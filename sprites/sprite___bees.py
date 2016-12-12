@@ -1,34 +1,33 @@
 import os
-import pygame, vision, time
+import pygame, vision
 from sprite___animal import AnimalSprite
 from properties import sprites_dir
 from health_bar import HealthBar
 from properties import screen
 
 
-class BearSprite(AnimalSprite):
-    # Constants for the initial state of all BearSprites
-    IMAGE = pygame.image.load(os.path.join(sprites_dir, "bear.png"))
+class BeesSprite(AnimalSprite):
+    # Constants for the initial state of all BeesSprites
+    IMAGE = pygame.image.load(os.path.join(sprites_dir, "bees.png"))
     HEALTH_BAR = HealthBar(100)
     AVG_SPEED = 0.2
     VISION = 4
-    PREY = ["fish"]
 
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         """
-        Create a BearSprite object
+        Create a BeesSprite object
         :param world_map: WorldMap Object
         :param coordinates: Array of coordinates [x,y]
         :param GRID_LOCK: Lock for screen (for threading)
         """
 
         ''' Take parameters, and Sprite Constants '''
-        super(BearSprite, self).__init__(world_map, BearSprite.IMAGE, GRID_LOCK,
-                                         BearSprite.HEALTH_BAR, BearSprite.AVG_SPEED,
-                                         BearSprite.VISION, coordinates)
+        super(BeesSprite, self).__init__(world_map, BeesSprite.IMAGE, GRID_LOCK,
+                                        BeesSprite.HEALTH_BAR, BeesSprite.AVG_SPEED,
+                                        BeesSprite.VISION, coordinates)
 
-        self.type = "bear"
-        self.prey = ["fish"]
+        self.type = "bees"
+        self.prey = ["plant"]
 
     def move(self, target=None):
         """
@@ -37,31 +36,34 @@ class BearSprite(AnimalSprite):
             Otherwise, moves sprite to a random adjacent tile.
         :param target: Target tile to move sprite.
         """
-        visible_tiles = vision.vision(8, self.world_map, self.tile)
+        visible_tiles = vision.vision(15, self.world_map, self.tile)
+        visible_tiles = filter(BeesSprite.pollinated_filter, visible_tiles)
         target_tile = vision.find_target(visible_tiles, self.prey)
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
-            if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
+            if self.is_movable_terrain(move_to_tile) and \
+                    self.not_contains_sprite(move_to_tile, self.prey):
                 if move_to_tile == target_tile:
-                    move_to_tile.contains_sprite.die()
+                    move_to_tile.contains_sprite.pollinate()
                 AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
         else:
             AnimalSprite.move(self)
 
-    def run(self):
+    @staticmethod
+    def pollinated_filter(tile):
         """
-        @Override
-            Runs the BearSprites's thread
+        Determines if there is an unpollinated plant sprite on the given tile
+        :param tile: Given tile in WorldMap object
+        :return: False: if plant is pollinated
+                 True: if plant is not pollinated
         """
-        self.spawn()
-        while self.is_alive:
-            self.move()
-            if self.tile.name.startswith("water"):
-                time.sleep(self.speed * 2)
-            else:
-                time.sleep(self.speed)
+        current_sprite = tile.contains_sprite
+        if current_sprite and current_sprite.type == "plant" and current_sprite.is_pollinated:
+            return False
+        else:
+            return True
 
 
 def main():
@@ -83,8 +85,9 @@ def main():
     GRID_LOCK = threading.Lock()
 
     # Create Thread
-    sprite = BearSprite(world_map, GRID_LOCK, [10,10])
+    sprite = BeesSprite(world_map, GRID_LOCK, [10,10])
     sprite.thread.start()
+
 
     # Loop until Pygame exits
     done = False
