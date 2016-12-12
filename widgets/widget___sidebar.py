@@ -2,6 +2,7 @@ import pygame
 import os
 from properties import *
 from pygame.locals import *
+from screens.screen___pause import *
 from widgets.widget___button import *
 from widgets.widget___button_group import *
 from widgets.widget___pop_button import *
@@ -26,7 +27,7 @@ class SideBar:
 
         # Replace this with a real button
         pause_y = self.height - 52
-        pause = Button((13, pause_y), "pausenormal", self.pause)
+        pause = Button((13, pause_y), "pausenormal", "pauseselected", self.pause)
         self.buttons.append(pause)
         pause.draw()
 
@@ -48,8 +49,4 @@ class SideBar:
 
     # Placeholder until we have a real way of pausing the game.
     def pause(self):
-        font = pygame.font.SysFont("monospace", 60, True, False)
-        text = "PAUSED"
-        label = font.render(text, 1, (255, 255, 255))
-        self.screen.blit(label, (300, 300))
-        pygame.display.update()
+        pause = PauseScreen()
