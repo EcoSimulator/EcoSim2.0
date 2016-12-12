@@ -30,7 +30,7 @@ class WolfSprite(AnimalSprite):
                                         WolfSprite.AVG_SPEED, WolfSprite.VISION, coordinates)
 
         self.type = "wolf"
-        self.targets = ["deer"]
+        self.prey = ["deer"]
         self.movable_terrain = world_map.get_all_land_tile_types()
 
     def move(self):
@@ -38,11 +38,11 @@ class WolfSprite(AnimalSprite):
 
         :return:
         """
-        visible_tiles = vision.vision(4, self.world_map, self.tile)
+        visible_tiles = vision.vision(10, self.world_map, self.tile)
         target_tile = vision.find_target(visible_tiles, self.prey)
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
-            if self.is_movable_terrain(self, move_to_tile) and self.not_contains_sprite(self, move_to_tile, self.prey):
+            if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
                 if move_to_tile == target_tile:
                     move_to_tile.contains_sprite.die()
                 AnimalSprite.move(self, move_to_tile)

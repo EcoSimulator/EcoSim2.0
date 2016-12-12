@@ -107,6 +107,6 @@ def flee(current_tile, repelling_tile, world_map):
                 step_x = 1
     go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] - step_y, current_tile.location_t[0] - step_x))
     # causes a max recursion depth exceeded error, not sure why, not sure we actually need this anyways
-    # if go_to_tile is None:
-    #     flee(current_tile, repelling_tile, world_map)
+    if go_to_tile is None:
+        flee(current_tile, repelling_tile, world_map)
     return go_to_tile
