@@ -7,8 +7,7 @@ from threading import Thread
 from sprites.sprite import Sprite
 from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
-# from sprites.poc___wolf import WolfSprite
-# from sprites.poc___deer import DeerSprite
+from sprites.sprite____eagle import EagleSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite
@@ -38,12 +37,12 @@ def sprite_test():
     deer_group = DeerGroup()
     plant_group = PlantGroup()
 
-    s1 = WolfSprite(world_map, GRID_LOCK, (0, 0))
-    s2 = WolfSprite(world_map, GRID_LOCK, (35, 35))
-    s3 = WolfSprite(world_map, GRID_LOCK, (55, 55))
+    s1 = EagleSprite(world_map, GRID_LOCK, (0, 0))
+    s2 = FishSprite(world_map, GRID_LOCK)
+    s3 = FishSprite(world_map, GRID_LOCK)
     s4 = WolfSprite(world_map, GRID_LOCK, (55, 35))
     s5 = WolfSprite(world_map, GRID_LOCK, (0, 35))
-    # s6 = BearSprite(world_map, GRID_LOCK)
+    s6 = BearSprite(world_map, GRID_LOCK)
 
     s7 = DeerSprite(world_map, GRID_LOCK)
     s8 = DeerSprite(world_map, GRID_LOCK)
@@ -58,13 +57,13 @@ def sprite_test():
     # s5.update()
     # s6.update()
     sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3)
-    sprites.add_to_correct_group(s4)
-    sprites.add_to_correct_group(s5)
+    # sprites.add_to_correct_group(s4)
+    # sprites.add_to_correct_group(s5)
     # sprites.add_to_correct_group(s6)
-    sprites.add_to_correct_group(s7)
-    sprites.add_to_correct_group(s8)
-    sprites.add_to_correct_group(s9)
-    sprites.add_to_correct_group(s10)
+    # sprites.add_to_correct_group(s7)
+    # sprites.add_to_correct_group(s8)
+    # sprites.add_to_correct_group(s9)
+    # sprites.add_to_correct_group(s10)
     # sprites.add_to_correct_group(s11)
     # sprites.add_to_correct_group(s12)
     # deer_group.update()
@@ -74,7 +73,7 @@ def sprite_test():
     # bees_group.update()
     # wolf_group.update()
     # plant_group.update()
-    wolf_group.determine_pack_leader()
+    # wolf_group.determine_pack_leader()
     sprites.update()
     #
 

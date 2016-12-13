@@ -64,7 +64,8 @@ class Sprite(pygame.sprite.DirtySprite):
         # used to override collision avoidance
         self.predators = []
         self.prey = []
-
+        self.shadow = None
+        self.shadow_tile = None
         self.thread = Thread(target=self.run)
         self.thread.daemon = True
         self.is_alive = True
@@ -76,7 +77,7 @@ class Sprite(pygame.sprite.DirtySprite):
         self.spawn()
         while self.is_alive:
             self.move()
-            time.sleep(0.05)
+            time.sleep(0.2)
 
     def spawn(self):
         """
@@ -114,10 +115,14 @@ class Sprite(pygame.sprite.DirtySprite):
     def display(self, target):
         self.tile.set_sprite(None)
         self.GRID_LOCK.acquire()
-        self.screen.blit(self.tile.image, self.rect)   # Blit to surface
+        self.screen.blit(self.tile.image, self.rect)   # Blit blank tile to surface
         self.tile = target
         self.rect = Rect(self.tile.locationPX, (24, 24))
         # put the sprite in the tile
+        if self.shadow is not None and self.shadow_tile is not None:
+            self.screen.blit(self.shadow_tile.image, self.shadow_tile.rect)
+            self.shadow_tile = self.world_map.get_tile_by_index((self.tile.location_t[1] + 1, self.tile.location_t[0]))
+            self.screen.blit(self.shadow, self.shadow_tile.rect)
         self.screen.blit(self.image, self.rect)
         pygame.display.update()
         self.GRID_LOCK.release()

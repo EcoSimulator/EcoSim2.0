@@ -38,6 +38,7 @@ class TileInstance(TileType):
         self.image = tile_type.image
         self.locationPX = None
         self.location_t = None
+        self.rect = None
         self.contains_sprite = None
         self.ignore_contents = False
 
@@ -57,6 +58,7 @@ class TileInstance(TileType):
         """
         self.locationPX = (x, y)
         self.location_t = (x/30, y/30)
+        self.rect = pygame.Rect((self.locationPX[0], self.locationPX[1]), (TileType.height, TileType.width))
 
     def set_sprite(self, sprite):
         self.contains_sprite = sprite

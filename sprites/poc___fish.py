@@ -12,7 +12,7 @@ class FishSprite(Sprite):
         Sprite.__init__(self, world_map, self.sprite_image, GRID_LOCK, coordinates)
         self.type = "fish"
         self.movable_terrain = world_map.get_all_water_tile_types()
-
+        self.speed = .5
     # def spawn(self):
     #     possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
     #     select = random.randint(0, len(possible_spawn_tiles) + 1)
