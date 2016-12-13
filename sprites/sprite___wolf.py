@@ -37,7 +37,6 @@ class WolfSprite(AnimalSprite):
 
     def move(self, target=None):
         """
-
         :return:
         """
         visible_tiles = vision.vision(10, self.world_map, self.tile)
