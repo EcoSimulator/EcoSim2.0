@@ -28,11 +28,17 @@ def find_target(visible_tiles, targets):
     :return: the first tile that contains a target in range, or False
     """
     for tile in visible_tiles:
-        if tile.contains_sprite is not None:
+        if tile.contains_sprite is None:
+            continue
+        else:
             for sprite_type in targets:
-                if tile.contains_sprite is not None:
+                if tile.contains_sprite is None:
+                    break
+                try:
                     if tile.contains_sprite.type == sprite_type:
                         return tile
+                except AttributeError:
+                    return False
     return False
 
 

@@ -35,7 +35,7 @@ class WolfSprite(AnimalSprite):
         self.movable_terrain = world_map.get_all_land_tile_types()
         self.is_leader = False
 
-    def move(self):
+    def move(self, target=None):
         """
 
         :return:
@@ -49,7 +49,7 @@ class WolfSprite(AnimalSprite):
                     move_to_tile.contains_sprite.die()
                 AnimalSprite.move(self, move_to_tile)
             elif not self.is_leader:
-                leader_tile = self.find_leader(visible_tiles)
+                leader_tile = self.find_leader()
                 if leader_tile:
                     move_to_tile = vision.approach(self.tile, leader_tile, self.world_map)
                     if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
@@ -59,17 +59,21 @@ class WolfSprite(AnimalSprite):
             else:
                 AnimalSprite.move(self)
         elif not self.is_leader:
-            leader_tile = self.find_leader(visible_tiles)
+            leader_tile = self.find_leader()
             if leader_tile:
-                move_to_tile = vision.approach(self.tile, leader_tile, self.world_map)
-                if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
-                    AnimalSprite.move(self, move_to_tile)
+                chance = random.randint(0, 10)
+                if chance == 0:
+                    AnimalSprite.move(self)
+                else:
+                    move_to_tile = vision.approach(self.tile, leader_tile, self.world_map)
+                    if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
+                        AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
         else:
             AnimalSprite.move(self)
 
-    def find_leader(self, visible_tiles):
+    def find_leader(self):
         for row in self.world_map.tiles:
             for tile in row:
                 sprite = tile.contains_sprite

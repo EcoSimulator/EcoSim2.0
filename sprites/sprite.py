@@ -76,7 +76,7 @@ class Sprite(pygame.sprite.DirtySprite):
         self.spawn()
         while self.is_alive:
             self.move()
-            time.sleep(0.2)
+            time.sleep(0.05)
 
     def spawn(self):
         """

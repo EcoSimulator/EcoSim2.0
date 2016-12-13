@@ -1,7 +1,7 @@
 import pygame
 import random
-import os
 from properties import *
+
 
 class WolfGroup(pygame.sprite.Group):
     def __init__(self, *sprites):
