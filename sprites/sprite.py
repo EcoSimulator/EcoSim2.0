@@ -121,8 +121,11 @@ class Sprite(pygame.sprite.DirtySprite):
         # put the sprite in the tile
         if self.shadow is not None and self.shadow_tile is not None:
             self.screen.blit(self.shadow_tile.image, self.shadow_tile.rect)
-            self.shadow_tile = self.world_map.get_tile_by_index((self.tile.location_t[1] + 1, self.tile.location_t[0]))
-            self.screen.blit(self.shadow, self.shadow_tile.rect)
+            try:
+                self.shadow_tile = self.world_map.get_tile_by_index((self.tile.location_t[1] + 1, self.tile.location_t[0]))
+                self.screen.blit(self.shadow, self.shadow_tile.rect)
+            except AttributeError:
+                pass
         self.screen.blit(self.image, self.rect)
         pygame.display.update()
         self.GRID_LOCK.release()

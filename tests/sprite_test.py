@@ -37,9 +37,9 @@ def sprite_test():
     deer_group = DeerGroup()
     plant_group = PlantGroup()
 
-    s1 = EagleSprite(world_map, GRID_LOCK, (0, 0))
-    s2 = FishSprite(world_map, GRID_LOCK)
-    s3 = FishSprite(world_map, GRID_LOCK)
+    s1 = EagleSprite(world_map, GRID_LOCK, (500, 500))
+    s2 = EagleSprite(world_map, GRID_LOCK, (550, 550))
+    s3 = FishSprite(world_map, GRID_LOCK, (450, 450))
     s4 = WolfSprite(world_map, GRID_LOCK, (55, 35))
     s5 = WolfSprite(world_map, GRID_LOCK, (0, 35))
     s6 = BearSprite(world_map, GRID_LOCK)
