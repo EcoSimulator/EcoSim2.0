@@ -13,6 +13,9 @@ from sprites.sprite___wolf import WolfSprite
 from sprites.sprite____eagle import EagleSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
+from sprites.sprite___hare import HareSprite
+from sprites.sprite___lynx import LynxSprite
+from sprites.sprite___ticks import TickSprite
 from sprites.poc___fish import FishSprite
 from sprites.poc___bear import BearSprite
 from groups.group___all_sprites import AllSpritesGroup
@@ -58,30 +61,44 @@ class GameScreen:
         deer_group = DeerGroup()
         plant_group = PlantGroup()
 
-        s1 = DeerSprite(self.world_map, GRID_LOCK, (500, 500))
-        s2 = BearSprite(self.world_map, GRID_LOCK, (550, 550))
-        s3 = FishSprite(self.world_map, GRID_LOCK)
-        s4 = WolfSprite(self.world_map, GRID_LOCK, (55, 35))
-        s5 = WolfSprite(self.world_map, GRID_LOCK, (0, 35))
-        s6 = BearSprite(self.world_map, GRID_LOCK)
+        s5 = WolfSprite(self.world_map, GRID_LOCK, (0, 0))
+        s6 = WolfSprite(self.world_map, GRID_LOCK, (31, 31))
+        s7 = WolfSprite(self.world_map, GRID_LOCK, (0, 31))
+        s8 = WolfSprite(self.world_map, GRID_LOCK, (31, 0))
 
-        s7 = DeerSprite(self.world_map, GRID_LOCK)
-        s8 = DeerSprite(self.world_map, GRID_LOCK)
-        s9 = DeerSprite(self.world_map, GRID_LOCK)
-        s10 = DeerSprite(self.world_map, GRID_LOCK)
-        s11 = BearSprite(self.world_map, GRID_LOCK)
-        s12 = BearSprite(self.world_map, GRID_LOCK)
+        s1 = DeerSprite(self.world_map, GRID_LOCK)
+        s2 = DeerSprite(self.world_map, GRID_LOCK)
+        s3 = DeerSprite(self.world_map, GRID_LOCK)
+        s4 = DeerSprite(self.world_map, GRID_LOCK)
+
+        s9 = BearSprite(self.world_map, GRID_LOCK)
+        s10 = BearSprite(self.world_map, GRID_LOCK)
+
+        s11 = FishSprite(self.world_map, GRID_LOCK)
+        s12 = FishSprite(self.world_map, GRID_LOCK)
+        s13 = FishSprite(self.world_map, GRID_LOCK)
+
+        s14 = PlantSprite(self.world_map, GRID_LOCK)
+        s15 = PlantSprite(self.world_map, GRID_LOCK)
+        s16 = PlantSprite(self.world_map, GRID_LOCK)
+        s17 = PlantSprite(self.world_map, GRID_LOCK)
+
+        s18 = LynxSprite(self.world_map, GRID_LOCK)
+        s19 = LynxSprite(self.world_map, GRID_LOCK)
+
+        s20 = BeesSprite(self.world_map, GRID_LOCK)
+        s21 = BeesSprite(self.world_map, GRID_LOCK)
+
+        s22 = HareSprite(self.world_map, GRID_LOCK)
+        s23 = HareSprite(self.world_map, GRID_LOCK)
+        s24 = HareSprite(self.world_map, GRID_LOCK)
+
+        s25 = TickSprite(self.world_map, GRID_LOCK)
+        s26 = TickSprite(self.world_map, GRID_LOCK)
 
         self.sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group],
                                        GRID_LOCK,
-                                       s1, s2, s3)
-        self.sprites.add_to_correct_group(s4)
-        self.sprites.add_to_correct_group(s5)
-        self.sprites.add_to_correct_group(s6)
-        self.sprites.add_to_correct_group(s7)
-        self.sprites.add_to_correct_group(s8)
-        self.sprites.add_to_correct_group(s9)
-        self.sprites.add_to_correct_group(s10)
-        self.sprites.add_to_correct_group(s11)
-        self.sprites.add_to_correct_group(s12)
+                                       s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17,
+                                       s18, s19, s20, s21, s22, s23, s24, s25, s26)
+
         wolf_group.determine_pack_leader()
