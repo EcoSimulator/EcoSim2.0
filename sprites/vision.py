@@ -28,11 +28,17 @@ def find_target(visible_tiles, targets):
     :return: the first tile that contains a target in range, or False
     """
     for tile in visible_tiles:
-        if tile.contains_sprite is not None:
+        if tile.contains_sprite is None:
+            continue
+        else:
             for sprite_type in targets:
-                if tile.contains_sprite is not None:
+                if tile.contains_sprite is None:
+                    break
+                try:
                     if tile.contains_sprite.type == sprite_type:
                         return tile
+                except AttributeError:
+                    return False
     return False
 
 
@@ -107,6 +113,6 @@ def flee(current_tile, repelling_tile, world_map):
                 step_x = 1
     go_to_tile = world_map.get_tile_by_index((current_tile.location_t[1] - step_y, current_tile.location_t[0] - step_x))
     # causes a max recursion depth exceeded error, not sure why, not sure we actually need this anyways
-    if go_to_tile is None:
-        flee(current_tile, repelling_tile, world_map)
+    # if go_to_tile is None:
+    #     flee(current_tile, repelling_tile, world_map)
     return go_to_tile

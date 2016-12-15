@@ -18,3 +18,6 @@ class AllSpritesGroup(pygame.sprite.Group):
 
     def remove(self, sprite):
         pygame.sprite.Group.remove(self, sprite)
+
+    def get_subgroups(self):
+        return self.subgroups

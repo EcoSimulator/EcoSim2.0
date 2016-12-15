@@ -4,6 +4,9 @@ import os
 ''' Global Game Screen '''
 screen = pygame.display.set_mode((800, 800))
 
+''' Global Sprite Group '''
+sprites = None
+
 ''' Resources Path Directories '''
 program_dir = os.path.dirname(os.path.realpath(__file__))
 
