@@ -9,28 +9,28 @@ from health_bar import HealthBar
 from properties import sprites_dir
 
 
-class LynxSprite(AnimalSprite):
+class TickSprite(AnimalSprite):
     # Constants for the initial state of a DeerSprite
-    IMAGE = pygame.image.load(os.path.join(sprites_dir, "lynx.png"))
+    IMAGE = pygame.image.load(os.path.join(sprites_dir, "tick_corner.png"))
     HEALTH_BAR = HealthBar(100)
     AVG_SPEED = 0.2
     VISION = 4
 
     def __init__(self, world_map, GRID_LOCK, coordinates=None):
         """
-        Create a LynxSprite object
+        Create a TickSprite object
         :param world_map: WorldMap Object
         :param coordinates: Array of coordinates [x,y]
         :param GRID_LOCK: Lock for screen (for threading)
         """
 
         ''' Take parameters, and Sprite Constants '''
-        super(LynxSprite, self).__init__(world_map, LynxSprite.IMAGE,
-                                        GRID_LOCK, LynxSprite.HEALTH_BAR,
-                                        LynxSprite.AVG_SPEED, LynxSprite.VISION, coordinates)
+        super(TickSprite, self).__init__(world_map, TickSprite.IMAGE,
+                                        GRID_LOCK, TickSprite.HEALTH_BAR,
+                                        TickSprite.AVG_SPEED, TickSprite.VISION, coordinates)
 
-        self.type = "lynx"
-        self.prey = ["deer", "hare"]
+        self.type = "tick"
+        self.prey = ["deer"]
         self.movable_terrain = world_map.get_all_land_tile_types()
 
     def move(self):
@@ -42,13 +42,12 @@ class LynxSprite(AnimalSprite):
         if target_tile:
             move_to_tile = vision.approach(self.tile, target_tile, self.world_map)
             if self.is_movable_terrain(move_to_tile) and self.not_contains_sprite(move_to_tile, self.prey):
-                if move_to_tile == target_tile:
-                    move_to_tile.contains_sprite.die()
                 AnimalSprite.move(self, move_to_tile)
             else:
                 AnimalSprite.move(self)
         else:
             AnimalSprite.move(self)
+
 
 def main():
     """
@@ -69,7 +68,7 @@ def main():
     GRID_LOCK = threading.Lock()
 
     # Create Thread
-    sprite = LynxSprite(world_map, GRID_LOCK)
+    sprite = TickSprite(world_map, GRID_LOCK)
     sprite.thread.start()
 
 

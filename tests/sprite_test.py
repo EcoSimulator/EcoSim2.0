@@ -10,6 +10,7 @@ from sprites.sprite___wolf import WolfSprite
 from sprites.sprite____eagle import EagleSprite
 from sprites.sprite___lynx import LynxSprite
 from sprites.sprite___hare import HareSprite
+from sprites.sprite___ticks import TickSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite
@@ -43,8 +44,8 @@ def sprite_test():
     s2 = EagleSprite(world_map, GRID_LOCK, (550, 550))
     s3 = FishSprite(world_map, GRID_LOCK, (450, 450))
     s4 = WolfSprite(world_map, GRID_LOCK, (55, 35))
-    s5 = WolfSprite(world_map, GRID_LOCK, (0, 35))
-    s6 = BearSprite(world_map, GRID_LOCK)
+    #s5 = WolfSprite(world_map, GRID_LOCK, (0, 35))
+    #s6 = BearSprite(world_map, GRID_LOCK)
 
     s7 = DeerSprite(world_map, GRID_LOCK)
     s8 = DeerSprite(world_map, GRID_LOCK)
@@ -57,17 +58,19 @@ def sprite_test():
     s14 = HareSprite(world_map, GRID_LOCK)
     s15 = HareSprite(world_map, GRID_LOCK)
 
-    s16 = LynxSprite(world_map, GRID_LOCK)
-    s17 = LynxSprite(world_map, GRID_LOCK)
-    s18 = LynxSprite(world_map, GRID_LOCK)
+    #s16 = LynxSprite(world_map, GRID_LOCK)
+    #s17 = LynxSprite(world_map, GRID_LOCK)
+    #s18 = LynxSprite(world_map, GRID_LOCK)
 
+    s19 = TickSprite(world_map, GRID_LOCK)
+    s20 = TickSprite(world_map, GRID_LOCK)
     # s1.update()
     # s2.update()
     # s3.update()
     # s4.update()
     # s5.update()
     # s6.update()
-    sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3, s4, s5, s6, s7, s9, s10, s11, s13, s14, s15, s16, s17)
+    sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3, s4,s7, s9, s10, s11, s13, s14, s15, s19, s20)
     # sprites.add_to_correct_group(s4)
     # sprites.add_to_correct_group(s5)
     # sprites.add_to_correct_group(s6)
