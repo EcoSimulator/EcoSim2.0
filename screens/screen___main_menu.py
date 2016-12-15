@@ -2,7 +2,6 @@ import pygame
 from screens.screen___game import *
 from widgets.widget___button import *
 from widgets.widget___button_group import *
-from widgets import widget___tiled_map as tiled_map
 from properties import *
 
 
@@ -20,21 +19,21 @@ class MainMenuScreen:
 
         # start/quit buttons
         start_x = (pygame.display.get_surface().get_width() / 2) - 45 #45 is half a standard button width
-        start_y = 300 #random for now
-        start_button = Button((start_x, start_y), "startnormal", "startselected", self.test_start)
+        start_y = 300
+        start_button = Button((start_x, start_y), "startnormal", "startselected", self.start_game)
         start_button.draw()
         self.button_group.append(start_button)
 
-        quit_button = Button((start_x, start_y + 36), "quitnormal", "quitselected", self.test_quit)
+        quit_button = Button((start_x, start_y + 36), "quitnormal", "quitselected", quit)
         quit_button.draw()
         self.button_group.append(quit_button)
 
-        while True:
+        done = False
+        while not done:
             self.button_group.monitor()
-            pygame.event.get()
+            for event in pygame.event.get():  # User did something
+                if event.type == pygame.QUIT:  # If user clicked close
+                    quit()
 
-    def test_start(self):
+    def start_game(self):
         self.game_screen = GameScreen(self.map)
-
-    def test_quit(self):
-        quit()

@@ -43,7 +43,7 @@ class Button:
         click = pygame.mouse.get_pressed()
         if self.rect.collidepoint(mouse):
             if click[0] == 1:
-                self.activate()
+                return True
 
     def activate(self):
         result = self.method(*self.args)

@@ -11,3 +11,6 @@ class WolfGroup(pygame.sprite.Group):
     def determine_pack_leader(self):
         index = random.randint(0, len(self) - 1)
         self.sprites()[index].is_leader = True
+
+    def get_type(self):
+        return self.type
