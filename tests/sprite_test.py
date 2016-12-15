@@ -8,6 +8,8 @@ from sprites.sprite import Sprite
 from sprites.sprite___deer import DeerSprite
 from sprites.sprite___wolf import WolfSprite
 from sprites.sprite____eagle import EagleSprite
+from sprites.sprite___lynx import LynxSprite
+from sprites.sprite___hare import HareSprite
 from sprites.poc___plant import PlantSprite
 from sprites.poc___bees import BeesSprite
 from sprites.poc___fish import FishSprite
@@ -50,13 +52,22 @@ def sprite_test():
     s10 = DeerSprite(world_map, GRID_LOCK)
     s11 = BearSprite(world_map, GRID_LOCK)
     s12 = BearSprite(world_map, GRID_LOCK)
+
+    s13 = HareSprite(world_map, GRID_LOCK)
+    s14 = HareSprite(world_map, GRID_LOCK)
+    s15 = HareSprite(world_map, GRID_LOCK)
+
+    s16 = LynxSprite(world_map, GRID_LOCK)
+    s17 = LynxSprite(world_map, GRID_LOCK)
+    s18 = LynxSprite(world_map, GRID_LOCK)
+
     # s1.update()
     # s2.update()
     # s3.update()
     # s4.update()
     # s5.update()
     # s6.update()
-    sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3)
+    sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group], s1, s2, s3, s4, s5, s6, s7, s9, s10, s11, s13, s14, s15, s16, s17)
     # sprites.add_to_correct_group(s4)
     # sprites.add_to_correct_group(s5)
     # sprites.add_to_correct_group(s6)

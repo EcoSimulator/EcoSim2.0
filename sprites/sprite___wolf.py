@@ -31,7 +31,7 @@ class WolfSprite(AnimalSprite):
                                         WolfSprite.AVG_SPEED, WolfSprite.VISION, coordinates)
 
         self.type = "wolf"
-        self.prey = ["deer"]
+        self.prey = ["deer", "hare"]
         self.movable_terrain = world_map.get_all_land_tile_types()
         self.is_leader = False
 
