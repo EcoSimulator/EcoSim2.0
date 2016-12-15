@@ -2,7 +2,7 @@ import pygame
 import os
 
 ''' Global Game Screen '''
-screen = pygame.display.set_mode((800, 800))
+screen = pygame.display.set_mode((904, 750))
 
 ''' Global Sprite Group '''
 sprites = None

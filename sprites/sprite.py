@@ -13,7 +13,6 @@ import pygame
 from pygame.locals import *
 import random
 import time
-import threading
 from threading import Thread
 from properties import *
 
@@ -49,8 +48,8 @@ class Sprite(pygame.sprite.DirtySprite):
             self.rect = None  # Rect(self.tile.locationPX, self.rect_size)
         else:
             self.coordinates = coordinates
-            self.loc_x = coordinates[0]
-            self.loc_y = coordinates[1]
+            self.loc_x = coordinates[0] + world_map.loc_x
+            self.loc_y = coordinates[1] + world_map.loc_y
             self.tile = world_map.get_tile_at_pixel(coordinates)
             self.rect = Rect(self.tile.locationPX, self.rect_size)
 
@@ -85,7 +84,9 @@ class Sprite(pygame.sprite.DirtySprite):
         """
         if self.coordinates is None:
             possible_spawn_tiles = self.world_map.get_all_tiles_of_types(self.movable_terrain)
-            select = random.randint(0, len(possible_spawn_tiles))
+            select = random.randint(0, len(possible_spawn_tiles) -
+
+                                    1)
             self.tile = possible_spawn_tiles[select]
             self.rect = Rect(self.tile.locationPX, self.rect_size)
         self.tile.set_sprite(self)  # adds the sprite to the current tile

@@ -51,14 +51,16 @@ class TileInstance(TileType):
         else:
             print self.name + ' @ ' + str(self.locationPX)
 
-    def set_location(self, (x, y)):
+    def set_location_px(self, (x, y)):
         """
         :param (x, y): the location to set
         :return: sets the location of the tile
         """
         self.locationPX = (x, y)
-        self.location_t = (x/30, y/30)
         self.rect = pygame.Rect((self.locationPX[0], self.locationPX[1]), (TileType.height, TileType.width))
+
+    def set_location_t(self, (x, y)):
+        self.location_t = (x, y)
 
     def set_sprite(self, sprite):
         self.contains_sprite = sprite
@@ -97,7 +99,8 @@ class WorldMap(pygame.Surface):
             for tile in line:
                 if tile is not None:
                     self.screen.blit(tile.image, (x * TileType.width + self.loc_x, y * TileType.height + self.loc_y))
-                    tile.set_location((x * TileType.width + self.loc_x, y * TileType.height + self.loc_y))
+                    tile.set_location_px((x * TileType.width + self.loc_x, y * TileType.height + self.loc_y))
+                    tile.set_location_t((x, y))
                     x += 1
             x = 0
             y += 1
@@ -108,8 +111,8 @@ class WorldMap(pygame.Surface):
         :param tile: the tile a sprite is actually on
         :return: a list of movable tiles that the sprite could move to
         """
-        y = tile.locationPX[0] / 30
-        x = tile.locationPX[1] / 30
+        y = (tile.locationPX[0] - self.loc_x) / 30
+        x = (tile.locationPX[1] - self.loc_y) / 30
         adjacent = [self.get_tile_by_index((x, (y + 1))),
                     self.get_tile_by_index((x, (y - 1))),
                     self.get_tile_by_index(((x + 1), y)),
@@ -124,7 +127,7 @@ class WorldMap(pygame.Surface):
             return None
 
     def get_tile_at_pixel(self, (x, y)):
-        return self.tiles[x/30][y/30]
+        return self.tiles[x /30][y/30]
 
     def set_tile(self, (x, y), tile_rep):
         self.tiles[x/30][y/30] = tile_rep

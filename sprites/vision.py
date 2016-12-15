@@ -17,7 +17,7 @@ def vision(distance, world_map, tile):
             for new_tile in world_map.get_surrounding_movable_tiles(next_tile):
                 temp.add(new_tile)
         vision_set = vision_set.union(temp)
-        vision_set.remove(tile)
+        # vision_set.remove(tile)
     return vision_set
 
 
