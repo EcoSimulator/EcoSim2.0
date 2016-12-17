@@ -3,28 +3,28 @@ from properties import *
 from widgets.widget___button import *
 from widgets.widget___info_display import *
 
-class PopButton(Button):
+class SetupButton(Button):
     # This is meant to be called in a loop.
-    def __init__(self, position, location, species, group):
+    def __init__(self, position, location, species, group, method):
         self.position = position    # The button's position in the list of PopButtons.
         self.location = location    # Where the first PopButton in the list appears. Should be (12, 14).
         self.species = species      # String containing the name of the species, for both the sprite and the info screen.
         self.group = group
-        self.method = InfoDisplay
+        self.method = method
         self.args = species
         self.least_concern = 0
         self.endangered = 1
         self.extinct = 2
         self.image = "popbutton"
         self.highlight_image = "popbuttonselected"
-        self.is_hovered = False
+        self.is_highlighted = False
+        self.is_activated = False
 
     def draw(self):
         self.x = self.location[0]
         self.y = self.location[1] + (self.position * 36) # Each PopButton will be 36 px below the last.
         self.rect = Rect((self.x + 36, self.y), (90, 27))
 
-        self.update_warning()
         self.draw_button_normal()
         self.draw_sprite()
         self.update_population()
@@ -32,14 +32,16 @@ class PopButton(Button):
     def monitor(self):
         self.update_population()
         mouse = pygame.mouse.get_pos()
-        # highlight button if it's hovered and not currently highlighted
-        if self.rect.collidepoint(mouse):
-            if not self.is_hovered:
-                self.hover_on()
-        # de-highlight button if it's highlighted and not currently hovered
-        if not self.rect.collidepoint(mouse):
-            if self.is_hovered:
-                self.hover_off()
+        if not self.is_activated:
+            # highlight button if it's hovered and not currently highlighted
+            if self.rect.collidepoint(mouse):
+                if not self.is_highlighted:
+                    self.highlight_on()
+            # de-highlight button if it's highlighted and not currently hovered
+            if not self.rect.collidepoint(mouse):
+                if self.is_highlighted:
+                    self.highlight_off()
+
         # activate button if it's clicked on
         if self.is_pressed():
             return self.activate()
@@ -54,18 +56,27 @@ class PopButton(Button):
                 return True
 
     def activate(self):
-        return InfoDisplay(self.species)
+        self.select_on()
+        return self.method(self, self.species)
 
-    # override hover methods to account for population number and sprite
-    def hover_on(self):
-        self.is_hovered = True
-        self.draw_button_hover()
+    # activation is a little convoluted at the moment. can fix when we pick this up again.
+    def select_on(self):
+        self.is_activated = True
+        self.highlight_on()
+
+    def deactivate(self):
+        self.is_activated = False
+        self.highlight_off()
+
+    def highlight_on(self):
+        self.is_highlighted = True
+        self.draw_button_highlighted()
         self.draw_sprite()
         self.update_population()
         pygame.display.update()
 
-    def hover_off(self):
-        self.is_hovered = False
+    def highlight_off(self):
+        self.is_highlighted = False
         self.draw_button_normal()
         self.draw_sprite()
         self.update_population()
@@ -76,7 +87,7 @@ class PopButton(Button):
         screen.blit(button, self.rect)
         pygame.display.update()
 
-    def draw_button_hover(self):
+    def draw_button_highlighted(self):
         button = pygame.image.load(os.path.join(buttons_dir, "popbuttonselected" + png_ext))
         screen.blit(button, self.rect)
         pygame.display.update()
@@ -102,24 +113,4 @@ class PopButton(Button):
 
         # blit new text
         screen.blit(label, (num_x, num_y))
-        pygame.display.update()
-
-        self.update_warning()
-
-    def update_warning(self):
-        # Determine conservation status of the species
-        population = len(self.group)
-        # if population is extinct
-        if (population == 0):
-            img = "warning_extinct"
-        # else if population is endangered
-        elif (population < 3):
-            img = "warning_on"
-        # else population is at least concern level
-        else:
-            img = "warning_off"
-
-        warning = pygame.image.load(os.path.join(sidebar_dir, img + png_ext))
-        warning_rect = Rect((self.x, self.y + 1), (27, 24))
-        screen.blit(warning, warning_rect)
         pygame.display.update()

@@ -12,3 +12,9 @@ class ButtonGroup:
     def monitor(self):
         for button in self.arr:
             button.monitor()
+
+    # Only for use with buttons that have an active/deactivated state.
+    # At the moment, that just means SetupButtons.
+    def deactivate_buttons(self):
+        for button in self.arr:
+            button.deactivate()
