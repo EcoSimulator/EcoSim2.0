@@ -30,6 +30,7 @@ class PopButton(Button):
         self.update_population()
 
     def monitor(self):
+        self.update_population()
         mouse = pygame.mouse.get_pos()
         # highlight button if it's hovered and not currently highlighted
         if self.rect.collidepoint(mouse):
@@ -107,20 +108,23 @@ class PopButton(Button):
 
     def update_warning(self):
         # Determine conservation status of the species
-        population = str(len(self.group))
+        population = len(self.group)
         if (population == 0):
-            level = self.extinct
-        elif (population < 3):
-            level = self.endangered
-        else:
-            level = self.least_concern
-
-        if level == self.extinct:
+            #level = self.extinct
             img = "warning_extinct"
-        elif level == self.endangered:
+        elif (population < 3):
+            #level = self.endangered
             img = "warning_on"
         else:
+            #level = self.least_concern
             img = "warning_off"
+
+        # if level == self.extinct:
+        #     img = "warning_extinct"
+        # elif level == self.endangered:
+        #     img = "warning_on"
+        # else:
+        #     img = "warning_off"
 
         warning = pygame.image.load(os.path.join(sidebar_dir, img + png_ext))
         warning_rect = Rect((self.x, self.y + 1), (27, 24))
