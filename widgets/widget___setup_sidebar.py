@@ -10,7 +10,7 @@ from widgets.widget___setup_button import *
 
 
 class SetupSideBar:
-    def __init__(self, height, sprite_group, GRID_LOCK):
+    def __init__(self, height, sprite_group, GRID_LOCK, placement_method, game_method):
         self.width = 154
         self.height = height
         self.sidebar_rect = Rect((0, 0), (154, height))
@@ -22,6 +22,10 @@ class SetupSideBar:
         self.thread = Thread(target=self.run)
         self.thread.daemon = True
         self.is_alive = True
+
+        # passing these in because at this point i don't have better ideas.
+        self.placement_method = placement_method
+        self.game_method = game_method
 
     def run(self):
         while True:
@@ -36,7 +40,7 @@ class SetupSideBar:
         self.make_setup_buttons()
 
         start_y = self.height - 52
-        start = Button((13, start_y), "startnormal", "startselected", self.pause)
+        start = Button((13, start_y), "startnormal", "startselected", self.start_game)
         self.buttons.append(start)
 
         start.draw()
@@ -60,8 +64,9 @@ class SetupSideBar:
     def set_placement_mode(self, button, species):
         self.setup_buttons.deactivate_buttons()
         button.select_on()
+        return self.placement_method(species)
 
     # Placeholder until we have a real way of pausing the game.
-    def pause(self):
+    def start_game(self):
         # self.sprite_group.pause()
-        pause = PauseScreen()
+        return self.game_method()

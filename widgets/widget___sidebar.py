@@ -63,4 +63,5 @@ class SideBar:
     # Placeholder until we have a real way of pausing the game.
     def pause(self):
         # self.sprite_group.pause()
-        pause = PauseScreen()
+        # pause = PauseScreen()
+        return False

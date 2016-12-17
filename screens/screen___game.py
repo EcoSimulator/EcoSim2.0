@@ -29,9 +29,10 @@ from groups.group___plant import PlantGroup
 
 # We'll need to pass a map param.
 class GameScreen:
-    def __init__(self, map_name):
-        self.world_map = widget___tiled_map.WorldMap(map_name + tmx_ext, (154, 0))
-        self.sprites = None
+    def __init__(self, map, sprites):
+        #self.world_map = widget___tiled_map.WorldMap(map_name + tmx_ext, (154, 0))
+        self.world_map = map
+        self.sprites = sprites
         self.GRID_LOCK = threading.Lock()
         self.world_map.render_entire_map()
 
@@ -39,6 +40,8 @@ class GameScreen:
 
         self.sb = SideBar(self.world_map.heightPX, self.sprites, self.GRID_LOCK)
         self.sb.draw()
+
+        self.run_map()
 
     def run_map(self):
         self.sprites.thread.start()
