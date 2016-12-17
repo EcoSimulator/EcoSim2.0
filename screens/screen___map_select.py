@@ -47,7 +47,7 @@ class MapSelectScreen:
         map_button = MapButton(location, map, self.start_game)
         map_button.draw()
         self.button_group.append(map_button)
-        self.start_x += self.inc_x
+        self.start_x += self.inc_x # This part kinda sucks. If we have more maps, we'll need to make use of inc_y, too.
 
     def start_game(self, map):
         self.game_screen = GameScreen(map)
