@@ -27,7 +27,7 @@ from groups.group___plant import PlantGroup
 def sprite_test():
     pygame.init()
 
-    world_map = widget___tiled_map.WorldMap("map2.tmx", (23, 23))
+    world_map = widget___tiled_map.WorldMap("map1.tmx", (0, 0))
 
     world_map.render_entire_map()
 

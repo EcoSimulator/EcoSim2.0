@@ -18,6 +18,8 @@ infoscreen_dir = os.path.join(resources_dir, "infoscreen")
 
 map_dir = os.path.join(resources_dir, "maps")
 
+map_preview_dir = os.path.join(resources_dir, "map_previews")
+
 sidebar_dir = os.path.join(resources_dir, "sidebar")
 
 sprites_dir = os.path.join(resources_dir, "sprites")
