@@ -41,12 +41,12 @@ class SetupButton(Button):
             if not self.rect.collidepoint(mouse):
                 if self.is_highlighted:
                     self.highlight_off()
-
-        # activate button if it's clicked on
-        if self.is_pressed():
-            return self.activate()
-        else:
-            return None
+            # activate button if it's clicked on
+            if self.is_pressed():
+                if not self.is_activated:
+                    return self.activate()
+            else:
+                return None
 
     def is_pressed(self):
         mouse = pygame.mouse.get_pos()

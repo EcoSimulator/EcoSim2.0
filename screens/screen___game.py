@@ -29,14 +29,17 @@ from groups.group___plant import PlantGroup
 
 # We'll need to pass a map param.
 class GameScreen:
-    def __init__(self, map, sprites):
+    def __init__(self, map, group_list, sprite_list, GRID_LOCK):
         #self.world_map = widget___tiled_map.WorldMap(map_name + tmx_ext, (154, 0))
         self.world_map = map
-        self.sprites = sprites
-        self.GRID_LOCK = threading.Lock()
+        self.group_list = group_list
+        self.sprite_list = sprite_list
+        self.GRID_LOCK = GRID_LOCK
+        #self.GRID_LOCK = threading.Lock()
         self.world_map.render_entire_map()
+        self.make_sprites()
 
-        self.start_new_map()
+        #self.start_new_map()
 
         self.sb = SideBar(self.world_map.heightPX, self.sprites, self.GRID_LOCK)
         self.sb.draw()
@@ -53,6 +56,17 @@ class GameScreen:
             for event in pygame.event.get():  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
                     quit()
+
+    def make_sprites(self):
+        have_wolves = False
+        for group in self.group_list:
+            if group.type == "wolf":
+                if len(group) > 0:
+                    wolf_group = group
+                    have_wolves = True
+        self.sprites = AllSpritesGroup(self.group_list, self.GRID_LOCK, *self.sprite_list)
+        if have_wolves is True:
+            wolf_group.determine_pack_leader()
 
     # temporary
     def start_new_map(self):

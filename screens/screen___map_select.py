@@ -1,5 +1,5 @@
 import pygame
-from screens.screen___game import *
+from screens.screen___setup import *
 from widgets.widget___button import *
 from widgets.widget___map_button import *
 from widgets.widget___button_group import *
@@ -10,7 +10,6 @@ class MapSelectScreen:
     def __init__(self):
         self.button_group = ButtonGroup()
         self.map = ""
-        self.game_screen = None
 
         # background image
         background_image = pygame.image.load(os.path.join(resources_dir, "eco_sim_cover" + png_ext))
@@ -36,19 +35,20 @@ class MapSelectScreen:
                 (map, ext) = os.path.splitext(file)
                 self.make_map_button((self.start_x, self.start_y), map)
 
-        done = False
-        while not done:
+        self.done = False
+        while not self.done:
             self.button_group.monitor()
             for event in pygame.event.get():  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
                     quit()
 
     def make_map_button(self, location, map):
-        map_button = MapButton(location, map, self.start_game)
+        map_button = MapButton(location, map, self.begin_setup)
         map_button.draw()
         self.button_group.append(map_button)
         self.start_x += self.inc_x # This part kinda sucks. If we have more maps, we'll need to make use of inc_y, too.
 
-    def start_game(self, map):
-        self.game_screen = GameScreen(map)
-        self.game_screen.run_map()
+    def begin_setup(self, map):
+        self.done = True
+        self.setup_screen = SetupScreen(map)
+        self.setup_screen.run()

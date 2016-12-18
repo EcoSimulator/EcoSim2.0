@@ -34,6 +34,7 @@ class SetupScreen:
     def __init__(self, map_name):
         self.world_map = widget___tiled_map.WorldMap(map_name + tmx_ext, (154, 0))
         self.sprites = None
+        self.sprites_list = []
         self.GRID_LOCK = threading.Lock()
         self.world_map.render_entire_map()
 
@@ -104,12 +105,18 @@ class SetupScreen:
                 sprite = WolfSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
                 self.wolf_group.add(sprite)
 
+            self.sprites_list.append(sprite)
             tile.set_sprite(sprite)
             sprite.spawn()
 
     def start_game(self):
         self.done = True
-        game = GameScreen(self.world_map, self.sprites)
+        new_groups = []
+        #only pass in groups with sprites
+        for group in self.group_list:
+            if len(group) > 0:
+                new_groups.append(group)
+        game = GameScreen(self.world_map, new_groups, self.sprites_list, self.GRID_LOCK)
 
     def create_sprite_groups(self):
         self.fish_group = FishGroup()
@@ -118,56 +125,5 @@ class SetupScreen:
         self.wolf_group = WolfGroup()
         self.deer_group = DeerGroup()
         self.plant_group = PlantGroup()
+        self.group_list = [self.fish_group, self.bear_group, self.bees_group, self.wolf_group, self.deer_group, self.plant_group]
         self.sprites = AllSpritesGroup([self.fish_group, self.bear_group, self.bees_group, self.wolf_group, self.deer_group, self.plant_group], self.GRID_LOCK)
-
-    # temporary
-    def start_new_map(self):
-        GRID_LOCK = self.GRID_LOCK
-        fish_group = FishGroup()
-        bear_group = BearGroup()
-        bees_group = BeesGroup()
-        wolf_group = WolfGroup()
-        deer_group = DeerGroup()
-        plant_group = PlantGroup()
-
-        s5 = WolfSprite(self.world_map, GRID_LOCK, (0, 0))
-        s6 = WolfSprite(self.world_map, GRID_LOCK, (31, 31))
-        s7 = WolfSprite(self.world_map, GRID_LOCK, (0, 31))
-        s8 = WolfSprite(self.world_map, GRID_LOCK, (31, 0))
-
-        s1 = DeerSprite(self.world_map, GRID_LOCK)
-        s2 = DeerSprite(self.world_map, GRID_LOCK)
-        s3 = DeerSprite(self.world_map, GRID_LOCK)
-        s4 = DeerSprite(self.world_map, GRID_LOCK)
-
-        s9 = BearSprite(self.world_map, GRID_LOCK)
-        s10 = BearSprite(self.world_map, GRID_LOCK)
-
-        s11 = FishSprite(self.world_map, GRID_LOCK)
-        s12 = FishSprite(self.world_map, GRID_LOCK)
-        s13 = FishSprite(self.world_map, GRID_LOCK)
-
-        s14 = PlantSprite(self.world_map, GRID_LOCK)
-        s15 = PlantSprite(self.world_map, GRID_LOCK)
-        s16 = PlantSprite(self.world_map, GRID_LOCK)
-        s17 = PlantSprite(self.world_map, GRID_LOCK)
-
-        s18 = LynxSprite(self.world_map, GRID_LOCK)
-        s19 = LynxSprite(self.world_map, GRID_LOCK)
-
-        s20 = BeesSprite(self.world_map, GRID_LOCK)
-        s21 = BeesSprite(self.world_map, GRID_LOCK)
-
-        s22 = HareSprite(self.world_map, GRID_LOCK)
-        s23 = HareSprite(self.world_map, GRID_LOCK)
-        s24 = HareSprite(self.world_map, GRID_LOCK)
-
-        s25 = TickSprite(self.world_map, GRID_LOCK)
-        s26 = TickSprite(self.world_map, GRID_LOCK)
-
-        self.sprites = AllSpritesGroup([fish_group, bear_group, bees_group, wolf_group, deer_group, plant_group],
-                                       GRID_LOCK,
-                                       s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17,
-                                       s18, s19, s20, s21, s22, s23, s24, s25, s26)
-
-        wolf_group.determine_pack_leader()
