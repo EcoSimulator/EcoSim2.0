@@ -55,13 +55,12 @@ class SetupScreen:
         while not self.done:
             map = self.world_map
             mouse = pygame.mouse.get_pos()
-            click = pygame.mouse.get_pressed()
-            if (map.loc_x < mouse[0] < map.widthPX and map.loc_y < mouse[1] < map.heightPX):
-                if click[0] == 1:
-                    if self.placement_mode is not None:
-                        self.place_sprite()
             self.sb.monitor_buttons()
             for event in pygame.event.get():  # User did something
+                if (map.loc_x < mouse[0] < map.widthPX and map.loc_y < mouse[1] < map.heightPX):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.placement_mode is not None:
+                            self.place_sprite()
                 if event.type == pygame.QUIT:  # If user clicked close
                     quit()
 
@@ -100,22 +99,23 @@ class SetupScreen:
             if mode == "wolf":
                 sprite = WolfSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
 
-            if tile.tile_type in sprite.movable_terrain:
-                self.sprites_list.append(sprite)
-                tile.set_sprite(sprite)
-                sprite.spawn()
-                if mode == "bear":
-                    self.bear_group.add(sprite)
-                if mode == "bees":
-                    self.bees_group.add(sprite)
-                if mode == "deer":
-                    self.deer_group.add(sprite)
-                if mode == "plant":
-                    self.plant_group.add(sprite)
-                if mode == "salmon" or mode == "fish":
-                    self.fish_group.add(sprite)
-                if mode == "wolf":
-                    self.wolf_group.add(sprite)
+            #commenting this conditional out for now, it's buggier with it than without.
+            #if tile.tile_type in sprite.movable_terrain:
+            self.sprites_list.append(sprite)
+            tile.set_sprite(sprite)
+            sprite.spawn()
+            if mode == "bear":
+                self.bear_group.add(sprite)
+            if mode == "bees":
+                self.bees_group.add(sprite)
+            if mode == "deer":
+                self.deer_group.add(sprite)
+            if mode == "plant":
+                self.plant_group.add(sprite)
+            if mode == "salmon" or mode == "fish":
+                self.fish_group.add(sprite)
+            if mode == "wolf":
+                self.wolf_group.add(sprite)
 
     def start_game(self):
         self.done = True
