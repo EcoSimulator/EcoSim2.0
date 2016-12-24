@@ -39,7 +39,7 @@ class SetupScreen:
         self.world_map.render_entire_map()
 
         self.create_sprite_groups()
-        self.set_placement_mode("bear")
+        self.placement_mode = None
 
         self.sb = SetupSideBar(self.world_map.heightPX, self.sprites, self.GRID_LOCK, self.set_placement_mode, self.start_game)
         self.sb.draw()
@@ -58,7 +58,8 @@ class SetupScreen:
             click = pygame.mouse.get_pressed()
             if (map.loc_x < mouse[0] < map.widthPX and map.loc_y < mouse[1] < map.heightPX):
                 if click[0] == 1:
-                    self.place_sprite()
+                    if self.placement_mode is not None:
+                        self.place_sprite()
             self.sb.monitor_buttons()
             for event in pygame.event.get():  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
@@ -80,13 +81,10 @@ class SetupScreen:
             #literally no better ideas than this right now.
             if mode == "bear":
                 sprite = BearSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154)) #no clue why this is necessary, but coordinates are flipped or something.
-                self.bear_group.add(sprite)
             if mode == "bees":
                 sprite = BeesSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
-                self.bees_group.add(sprite)
             if mode == "deer":
                 sprite = DeerSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
-                self.deer_group.add(sprite)
             if mode == "eagle":
                 sprite = EagleSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
             if mode == "hare":
@@ -95,19 +93,29 @@ class SetupScreen:
                 sprite = LynxSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
             if mode == "plant":
                 sprite = PlantSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
-                self.plant_group.add(sprite)
             if mode == "salmon" or mode == "fish":
                 sprite = FishSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
-                self.fish_group.add(sprite)
             if mode == "ticks":
                 sprite = TickSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
             if mode == "wolf":
                 sprite = WolfSprite(self.world_map, self.GRID_LOCK, (mouse[1], mouse[0] - 154))
-                self.wolf_group.add(sprite)
 
-            self.sprites_list.append(sprite)
-            tile.set_sprite(sprite)
-            sprite.spawn()
+            if tile.tile_type in sprite.movable_terrain:
+                self.sprites_list.append(sprite)
+                tile.set_sprite(sprite)
+                sprite.spawn()
+                if mode == "bear":
+                    self.bear_group.add(sprite)
+                if mode == "bees":
+                    self.bees_group.add(sprite)
+                if mode == "deer":
+                    self.deer_group.add(sprite)
+                if mode == "plant":
+                    self.plant_group.add(sprite)
+                if mode == "salmon" or mode == "fish":
+                    self.fish_group.add(sprite)
+                if mode == "wolf":
+                    self.wolf_group.add(sprite)
 
     def start_game(self):
         self.done = True

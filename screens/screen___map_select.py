@@ -12,9 +12,8 @@ class MapSelectScreen:
         self.map = ""
 
         # background image
-        background_image = pygame.image.load(os.path.join(resources_dir, "eco_sim_cover" + png_ext))
+        background_image = pygame.image.load(os.path.join(resources_dir, "soilmap" + png_ext))
         bg_rect = Rect((0, 0), (pygame.display.get_surface().get_size()))
-        background_image = pygame.transform.scale(background_image, bg_rect.size)
         screen.blit(background_image, bg_rect)
         # create an overlay
         pane = pygame.Surface(
@@ -24,9 +23,11 @@ class MapSelectScreen:
         screen.blit(pane, (0, 0))
         pygame.display.update()
 
-        # start/quit buttons
+        self.draw_setup_text()
+
+        # map buttons
         self.start_x = 100
-        self.start_y = 100
+        self.start_y = 200
         self.inc_x = 180
         self.inc_y = 180
 
@@ -41,6 +42,11 @@ class MapSelectScreen:
             for event in pygame.event.get():  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
                     quit()
+
+    def draw_setup_text(self):
+        text_image = pygame.image.load(os.path.join(resources_dir, "select_a_map" + png_ext))
+        text_rect = Rect((pygame.display.get_surface().get_width()/2 - 305, 80), (609, 51))
+        screen.blit(text_image, text_rect)
 
     def make_map_button(self, location, map):
         map_button = MapButton(location, map, self.begin_setup)

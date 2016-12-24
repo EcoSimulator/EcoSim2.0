@@ -19,7 +19,7 @@ class Button:
 
     # At the moment, buttons are all a standard size. We can change this if necessary.
     def draw(self):
-        self.rect = Rect(self.location, (90, 27))
+        self.rect = Rect(self.location, (129, 39))
         img = pygame.image.load(os.path.join(buttons_dir, self.image + png_ext))
         screen.blit(img, self.rect)
         pygame.display.update()

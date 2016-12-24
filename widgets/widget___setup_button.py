@@ -7,7 +7,7 @@ class SetupButton(Button):
     # This is meant to be called in a loop.
     def __init__(self, position, location, species, group, method):
         self.position = position    # The button's position in the list of PopButtons.
-        self.location = location    # Where the first PopButton in the list appears. Should be (12, 14).
+        self.location = location
         self.species = species      # String containing the name of the species, for both the sprite and the info screen.
         self.group = group
         self.method = method
@@ -104,7 +104,7 @@ class SetupButton(Button):
 
         # generate coordinates and render text
         num_x = 80
-        num_y = (self.position * 36) + 15
+        num_y = (self.position * 36) + (self.location[1] + 1)
         label = font.render(population, 1, (0, 0, 0))
 
         white = pygame.Surface((50, 21))

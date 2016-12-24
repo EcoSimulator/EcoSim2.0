@@ -45,11 +45,18 @@ class SetupSideBar:
 
         start.draw()
 
+        self.draw_text()
+
         pygame.display.update()
+
+    def draw_text(self):
+        text_block = pygame.image.load(os.path.join(sidebar_dir, "placement_text" + png_ext))
+        text_rect = Rect((0, 6), (154, 88))
+        screen.blit(text_block, text_rect)
 
     def make_setup_buttons(self):
         iterator = 0
-        start = (12, 14)
+        start = (12, 102)
         for species in self.sprite_group.get_subgroups():
             setup_btn = SetupButton(iterator, start, species.type, species, self.set_placement_mode)
             setup_btn.draw()
